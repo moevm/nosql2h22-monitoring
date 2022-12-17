@@ -5,7 +5,7 @@
 .idea/vcs.xml
 .idea/inspectionProfiles/profiles_settings.xml
 venv
-frontend/.idea/.gitignore
+frontend/.idea/
 frontend/.idea/frontend.iml
 frontend/.idea/modules.xml
 frontend/.idea/prettier.xml
