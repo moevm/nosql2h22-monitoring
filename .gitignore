@@ -7,3 +7,10 @@
 node_modules/
 .idea/
 venv
+frontend/.idea/
+frontend/.idea/frontend.iml
+frontend/.idea/modules.xml
+frontend/.idea/prettier.xml
+frontend/.idea/vcs.xml
+frontend/.idea/inspectionProfiles/Project_Default.xml
+frontend/package-lock.json
