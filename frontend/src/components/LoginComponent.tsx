@@ -1,8 +1,7 @@
 import React from "react";
-import Box from "@mui/material/Box";
+
 import TextField from "@mui/material/TextField";
 import { Button } from "@mui/material";
-import Grid from "@mui/material/Grid";
 
 import { useNavigate } from "react-router-dom";
 
@@ -49,7 +48,7 @@ const LoginComponent: React.FC<ILoginComporentProps> = ({}) => {
           variant="contained"
           onClick={loginAction}
         >
-          Contained
+          Sign in
         </Button>
       </div>
     </>
