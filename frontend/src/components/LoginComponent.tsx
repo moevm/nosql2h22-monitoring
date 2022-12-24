@@ -5,7 +5,7 @@ import { Button } from "@mui/material";
 
 import { useNavigate } from "react-router-dom";
 
-import { auntification } from "../functions/axois/auntification";
+import { auntification } from "../functions/http/auntification";
 
 import "../css/LoginComponent.css";
 
