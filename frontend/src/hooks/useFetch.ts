@@ -9,7 +9,7 @@ interface State<T> {
 type Action<T> = { type: 'loading' } | { type: 'fetched'; payload: T } | { type: 'error'; payload: Error };
 
 export const useFetch = <T = unknown>(url: HTTP, query?: string, onMount = true)
-  :[State<T>, () => void]=> {
+  :[State<T>, (options?: RequestInit) => void]=> {
   const initialState: State<T> = {
     error: undefined,
     data: undefined,
@@ -34,11 +34,6 @@ export const useFetch = <T = unknown>(url: HTTP, query?: string, onMount = true)
     dispatch({type: 'loading'});
     try {
       const urlWithQuery = query ? url + query : url;
-
-      if (options?.body && typeof options.body !== 'string') {
-        options.body = JSON.stringify(options.body);
-      }
-
       const response = await fetch(BASE_URL + urlWithQuery, options);
       if (!response.ok) {
         throw new Error(response.statusText);
