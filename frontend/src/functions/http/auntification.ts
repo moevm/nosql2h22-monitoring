@@ -1,7 +1,4 @@
-const auntification = (login: string): boolean => {
-  const logins: string[] = ["admin", "login"];
-  if (logins.includes(login)) return true;
-  return false;
+export const auntification = (login: string): boolean => {
+  const logins: string[] = ["admin", "patient"];
+  return logins.includes(login);
 };
-
-export { auntification };
