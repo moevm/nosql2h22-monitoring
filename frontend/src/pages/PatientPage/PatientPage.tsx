@@ -7,7 +7,6 @@ import { useFetch } from "../../hooks/useFetch";
 import { HTTP } from "../../types/http";
 import { IQuestion } from "../../types";
 
-/*
 const quesqion: IQuestion[] = [{
   answersType: 'numeric',
   questionId: '1',
@@ -28,7 +27,6 @@ const quesqion: IQuestion[] = [{
     questionId: '4',
     text: 'Оцените состояние от 1 до 10'
   }]
-*/
 
 
 const PatientPage = () => {
@@ -43,7 +41,7 @@ const PatientPage = () => {
     <Stack direction="row" justifyContent={"space-between"} padding="0 100px">
       {startQuiz && questions
         ? <PatientQuiz questions={questions}/>
-        : <Typography>Нажмите на кнопку, чтобы начать опрос</Typography>}
+        : <PatientQuiz questions={quesqion}/>/*<Typography>Нажмите на кнопку, чтобы начать опрос</Typography>*/}
       <Box>
         <PatientRecommendations recommendations={null}/>
         <Button

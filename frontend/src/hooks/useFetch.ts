@@ -8,7 +8,7 @@ interface State<T> {
 
 type Action<T> = { type: 'loading' } | { type: 'fetched'; payload: T } | { type: 'error'; payload: Error };
 
-export const useFetch = <T = unknown>(url: HTTP, query?: string, options?: RequestInit, onMount = true)
+export const useFetch = <T = unknown>(url: HTTP, query?: string, onMount = true)
   :[State<T>, () => void]=> {
   const initialState: State<T> = {
     error: undefined,
@@ -30,7 +30,7 @@ export const useFetch = <T = unknown>(url: HTTP, query?: string, options?: Reque
 
   const [state, dispatch] = useReducer(fetchReducer, initialState);
 
-  const fetchData = async () => {
+  const fetchData = async (options?: RequestInit) => {
     dispatch({type: 'loading'});
     try {
       const urlWithQuery = query ? url + query : url;

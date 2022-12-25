@@ -4,7 +4,7 @@ import { IQuestionProps } from "../Question.types";
 import { QuizContext } from "../../../components/PatientQuiz/QuizContext";
 
 const LogicalQuestion: FC<IQuestionProps> = ({questionId}) => {
-  const [alignment, setAlignment] = useState('yes');
+  const [alignment, setAlignment] = useState('');
   const updateQuizContext = useContext(QuizContext);
 
   const handleChange = (event: React.MouseEvent<HTMLElement>, newAlignment: string) => {

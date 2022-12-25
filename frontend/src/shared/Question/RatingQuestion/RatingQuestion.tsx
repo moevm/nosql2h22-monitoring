@@ -8,7 +8,7 @@ const ratingArray = Array(10).fill(0).map((_, index) => index + 1);
 
 const RatingQuestion: FC<IQuestionProps> = ({questionId}) => {
   const updateQuizContext = useContext(QuizContext);
-  const [value, setValue] = useInput('1', undefined,
+  const [value, setValue] = useInput('', undefined,
       value => updateQuizContext(prev => ({...prev, [questionId]: +value})));
 
   return (

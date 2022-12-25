@@ -6,7 +6,7 @@ export const useInput = (initialValue='', pattern=/.*/, onUpdate?: (value: strin
 
   const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
     const value = event.target.value.trim();
-    console.log(value, pattern, pattern.test(value));
+
     if (pattern.test(value)) {
       setValue(value);
       onUpdate && onUpdate(value);
