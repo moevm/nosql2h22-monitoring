@@ -11,7 +11,7 @@ interface IPatientQuizProps {
 }
 
 const PatientQuiz: FC<IPatientQuizProps> = ({questions}) => {
-  const {setAnswers, setRowFiles, sendAnswers} = useQuiz(questions.length);
+  const {setAnswers, setRowFiles, sendAnswers, rowFiles} = useQuiz(questions.length);
 
   return (
     <QuizContext.Provider value={setAnswers}>
@@ -24,7 +24,13 @@ const PatientQuiz: FC<IPatientQuizProps> = ({questions}) => {
             text={question.text}
             questionId={question.questionId}
           />)}
-        <FileLoader maxFiles={5} setRowFiles={setRowFiles}/>
+        <FileLoader
+          rowFiles={rowFiles}
+          maxFiles={5}
+          setRowFiles={setRowFiles}
+          accept="image/*,video/*"
+          text="Загрузить файлы"
+        />
         <Button variant="contained" onClick={sendAnswers}>Отправить результаты</Button>
       </Stack>
     </QuizContext.Provider>

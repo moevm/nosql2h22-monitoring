@@ -1,11 +1,13 @@
 import React, { useState } from 'react';
 import PatientRecommendations from "../../components/PatientRecommendations/PatientRecommendations";
 
-import { Box, Button, Stack, Typography } from "@mui/material";
+import { Button, Stack, Typography } from "@mui/material";
 import PatientQuiz from "../../components/PatientQuiz/PatientQuiz";
 import { useFetch } from "../../hooks/useFetch";
 import { HTTP } from "../../types/http";
 import { IQuestion } from "../../types";
+import FileLoader from "../../shared/FileLoader/FileLoader";
+import { useFetchWithFormData } from "../../hooks/useFetchWithFormData";
 
 const quesqion: IQuestion[] = [{
   answersType: 'numeric',
@@ -32,6 +34,7 @@ const quesqion: IQuestion[] = [{
 const PatientPage = () => {
   const [{error, data: questions}] = useFetch<IQuestion[] | null>(HTTP.getPatientQuiz, '?id=10');
   const [startQuiz, setStartQuiz] = useState(false);
+  const {setRowFiles, fetchData, rowFiles} = useFetchWithFormData(HTTP.sendSignedMedia);
 
   if (!error) {
     return <Typography>Ошибка получения данных с бекенда</Typography>;
@@ -42,7 +45,7 @@ const PatientPage = () => {
       {startQuiz && questions
         ? <PatientQuiz questions={questions}/>
         : <PatientQuiz questions={quesqion}/>/*<Typography>Нажмите на кнопку, чтобы начать опрос</Typography>*/}
-      <Box>
+      <Stack spacing={1}>
         <PatientRecommendations recommendations={null}/>
         <Button
           variant="contained"
@@ -51,7 +54,15 @@ const PatientPage = () => {
         >
           {questions ? 'Пройти опрос' : 'Опросов нет'}
         </Button>
-      </Box>
+        <Stack gap={1}>
+          <Typography fontSize={20}>Загрузка подписанных документов</Typography>
+          <FileLoader rowFiles={rowFiles} maxFiles={1} accept="image/*" setRowFiles={setRowFiles} text="Загрузить"/>
+          <Button variant="contained" onClick={() => fetchData()}>Отправить</Button>
+        </Stack>
+        <Stack>
+          неподписанные(ссылки)
+        </Stack>
+      </Stack>
     </Stack>
   );
 };

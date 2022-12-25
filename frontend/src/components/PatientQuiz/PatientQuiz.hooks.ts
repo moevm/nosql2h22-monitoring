@@ -1,20 +1,18 @@
 import { IQuizContext } from "./QuizContext";
 import { useState } from "react";
-import { useFetch } from "../../hooks/useFetch";
 import { HTTP } from "../../types/http";
+import { useFetchWithFormData } from "../../hooks/useFetchWithFormData";
 
 export const useQuiz = (questionsLength: number) => {
   const [answers, setAnswers] = useState<IQuizContext>({});
-  const [rowFiles, setRowFiles] = useState<File[] | null>(null);
-  const [{error}, sendAnswers] = useFetch<string>(HTTP.sendPatientAnswer, undefined, false);
-console.log(error)
-  const handleAnswers = () => {
-    if (!rowFiles) {
-      alert('Загрузите файлы');
-      return;
-    }
+  const {setRowFiles, fetchData, rowFiles} = useFetchWithFormData<string>(HTTP.sendPatientAnswer);
 
-    const answerArray = [];
+  const handleAnswers = () => {
+
+    const answerArray: {
+      questionId: string,
+      answer: string | number | boolean
+    }[] = [];
 
     for (let id in answers) {
       answerArray.push({
@@ -28,14 +26,8 @@ console.log(error)
       return;
     }
 
-    const formData = new FormData();
-    rowFiles.forEach(rowFile => {
-      formData.append('file', rowFile);
-    });
-
-    formData.append('result', JSON.stringify(answerArray));
-    sendAnswers({body: formData, method: 'post'});
+    fetchData({result: answerArray});
   }
 
-  return {setAnswers, setRowFiles, sendAnswers: handleAnswers};
+  return {setAnswers, setRowFiles, sendAnswers: handleAnswers, rowFiles};
 }
