@@ -28,7 +28,7 @@ export const useFetch = <T = unknown>(url: HTTP, query?: string, options?: Reque
     }
   }
 
-  const [state, dispatch] = useReducer(fetchReducer, initialState)
+  const [state, dispatch] = useReducer(fetchReducer, initialState);
 
   const fetchData = async () => {
     dispatch({type: 'loading'});

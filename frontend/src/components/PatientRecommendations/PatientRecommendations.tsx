@@ -1,12 +1,12 @@
 import React, { FC } from 'react';
 import { Accordion, AccordionDetails, AccordionSummary, Box, Typography } from "@mui/material";
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
-import { Recommendation } from "../../types";
+import { IRecommendation } from "../../types";
 import { sortByDate } from "../../utils/sortByDate";
 import { formatDate } from "../../utils/formatDate";
 
 interface IPatientRecommendationsProps {
-  recommendations: Recommendation[] | null;
+  recommendations: IRecommendation[] | null;
 }
 
 const PatientRecommendations: FC<IPatientRecommendationsProps> = ({recommendations}) => {
