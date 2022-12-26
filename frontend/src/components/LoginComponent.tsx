@@ -1,7 +1,7 @@
-import React from "react";
+import React, { useEffect } from "react";
 
 import TextField from "@mui/material/TextField";
-import { Button } from "@mui/material";
+import { Button, CircularProgress } from "@mui/material";
 
 import { useNavigate } from "react-router-dom";
 
@@ -9,45 +9,50 @@ import { auntification } from "../functions/http/auntification";
 
 import "../css/LoginComponent.css";
 import { useInput } from "../hooks/useInput";
+import { useAppDispatch, useAppSelector } from "../hooks/useRedux";
+import { signIn } from "../redux/reducers/userReducer/userReducer";
+import { showError } from "../utils/showError";
 
 interface ILoginComponentProps {}
 
 const LoginComponent: React.FC<ILoginComponentProps> = ({}) => {
   const [login, setLogin] = useInput("");
-  const [error, setError] = React.useState<boolean>(false);
-
+  const dispatch = useAppDispatch();
+  const isAuthLoading = useAppSelector(state => state.user.auth.isLoading);
+  const userInfo = useAppSelector(state => state.user.userInfo);
   const navigation = useNavigate();
-  // const [variant, setVariant] = React.useState<string>("outlined")
 
   const loginAction = () => {
-    console.log(login);
-    if (auntification(login)) {
-      navigation(`/user/${login}`);
-    } else {
-      setError(true);
-    }
+    dispatch(signIn({login}))
+      .unwrap()
+      .catch(showError);
   };
+
+  useEffect(() => {
+    if (userInfo) {
+      navigation(`/user/${userInfo.role}`);
+    }
+  }, [userInfo]);
   return (
     <>
       <div className="LoginComponent">
         <TextField
-          error={error}
-          required
           inputProps={{ pattern: "[a-z]{1,15}" }}
-          id="login_text_field"
           label="Login"
           variant="outlined"
           value={login}
           onChange={setLogin}
           margin="dense"
+          required
         />
         <Button
           id="login_button"
           className="LoginComponent__Button"
           variant="contained"
           onClick={loginAction}
+          disabled={isAuthLoading}
         >
-          Sign in
+          {isAuthLoading? <CircularProgress/>: 'Войти'}
         </Button>
       </div>
     </>
