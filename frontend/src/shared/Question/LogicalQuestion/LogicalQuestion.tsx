@@ -1,7 +1,8 @@
 import React, { FC, useContext, useState } from 'react';
-import { ToggleButton, ToggleButtonGroup } from "@mui/material";
-import { IQuestionProps } from "../Question.types";
-import { QuizContext } from "../../../components/PatientQuiz/QuizContext";
+import { ToggleButton, ToggleButtonGroup } from '@mui/material';
+
+import { IQuestionProps } from '../Question.types';
+import { QuizContext } from '../../../components/PatientQuiz/QuizContext';
 
 const LogicalQuestion: FC<IQuestionProps> = ({questionId}) => {
   const [alignment, setAlignment] = useState('');

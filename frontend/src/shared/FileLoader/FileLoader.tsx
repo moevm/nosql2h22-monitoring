@@ -1,6 +1,7 @@
 import React, { ChangeEvent, Dispatch, FC, SetStateAction, useEffect, useState } from 'react';
-import { Button, ImageList, ImageListItem } from "@mui/material";
-import FilePreview from "../FilePreview/FilePreview";
+import { Button, ImageList, ImageListItem } from '@mui/material';
+
+import FilePreview from '../FilePreview/FilePreview';
 
 interface IFileLoaderProps {
   maxFiles: number;
@@ -32,17 +33,17 @@ const FileLoader: FC<IFileLoaderProps> = ({maxFiles, setRowFiles, text, accept, 
 
       reader.addEventListener('load', e => {
         setFiles(prev => [...prev, e.target!.result as string]);
-      })
+      });
 
       reader.readAsDataURL(file);
-    })
-  }
+    });
+  };
 
-  useEffect(()=> {
+  useEffect(() => {
     if (!rowFiles) {
       setFiles([]);
     }
-  },[rowFiles]);
+  }, [rowFiles]);
 
   return (
     <>

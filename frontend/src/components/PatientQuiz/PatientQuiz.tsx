@@ -1,10 +1,12 @@
-import React, { FC, useState } from 'react';
-import { Button, Stack, Typography } from "@mui/material";
-import { IQuestion } from "../../types";
-import { QuizContext } from "./QuizContext";
-import Question from "../../shared/Question/Question";
-import FileLoader from "../../shared/FileLoader/FileLoader";
-import { useQuiz } from "./PatientQuiz.hooks";
+import React, { FC } from 'react';
+import { Button, Stack, Typography } from '@mui/material';
+
+import { IQuestion } from '../../types';
+import Question from '../../shared/Question/Question';
+import FileLoader from '../../shared/FileLoader/FileLoader';
+
+import { QuizContext } from './QuizContext';
+import { useQuiz } from './PatientQuiz.hooks';
 
 interface IPatientQuizProps {
   questions: IQuestion[];

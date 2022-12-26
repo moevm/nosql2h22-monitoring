@@ -1,7 +1,9 @@
 import React, { FC } from 'react';
-import { IQuestion } from "../../types";
-import { Box, Typography } from "@mui/material";
-import QuestionField from "./QuestionField/QuestionField";
+import { Box, Typography } from '@mui/material';
+
+import { IQuestion } from '../../types';
+
+import QuestionField from './QuestionField/QuestionField';
 
 interface IQuestionProps {
   type: IQuestion['answersType'];

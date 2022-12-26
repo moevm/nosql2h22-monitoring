@@ -1,6 +1,6 @@
-import { ChangeEvent, useState } from "react";
+import { ChangeEvent, useState } from 'react';
 
-export const useInput = (initialValue='', pattern=/.*/, onUpdate?: (value: string) => void)
+export const useInput = (initialValue = '', pattern = /.*/, onUpdate?: (value: string) => void)
   :[string, (event: ChangeEvent<HTMLInputElement>) => void] => {
   const [value, setValue] = useState(initialValue);
 

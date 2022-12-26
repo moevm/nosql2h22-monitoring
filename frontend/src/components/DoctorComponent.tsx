@@ -1,8 +1,6 @@
-import React from "react";
+import React from 'react';
 
-interface IDoctorComponentProps {}
-
-const DoctorComponent: React.FC<IDoctorComponentProps> = ({}) => {
+const DoctorComponent = () => {
   return <></>;
 };
 

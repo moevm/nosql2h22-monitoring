@@ -1,8 +1,10 @@
-import { createSlice } from "@reduxjs/toolkit";
-import { UserReducerState } from "./userReducer.typings";
-import { getAsyncActionMutation, getAsyncActionQuery } from "../../utils/getAsyncAction";
-import { userApi } from "../../../api/userApi/userApi";
-import { patientApi } from "../../../api/patientApi/patientApi";
+import { createSlice } from '@reduxjs/toolkit';
+
+import { getAsyncActionMutation, getAsyncActionQuery } from '../../utils/getAsyncAction';
+import { userApi } from '../../../api/userApi/userApi';
+import { patientApi } from '../../../api/patientApi/patientApi';
+
+import { UserReducerState } from './userReducer.typings';
 
 const initialState: UserReducerState = {
   auth: {
@@ -32,9 +34,9 @@ const userSlice = createSlice({
         state.auth.isLoading = false;
         state.userInfo = action.payload;
       })
-      .addCase(signIn.rejected, (state) => {
+      .addCase(signIn.rejected, state => {
         state.auth.isLoading = false;
-      })
+      });
   }
 });
 

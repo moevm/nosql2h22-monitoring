@@ -1,9 +1,9 @@
-import { useState } from "react";
+import { useState } from 'react';
 
 export const useFetchWithFormData = () => {
   const [rowFiles, setRowFiles] = useState<File[] | null>(null);
 
-  const prepareAndFetchData = <V extends {}>(sendFunc: (data: FormData) => void, extraData?: V) => {
+  const prepareAndFetchData = <V extends object>(sendFunc: (data: FormData) => void, extraData?: V) => {
     if (!rowFiles) {
       alert('Загрузите файлы');
       return;
@@ -14,14 +14,15 @@ export const useFetchWithFormData = () => {
       formData.append('file', rowFile);
     });
 
-    for (let key in extraData) {
+    for (const key in extraData) {
+      // eslint-disable-next-line no-prototype-builtins
       if (extraData.hasOwnProperty(key)) {
         formData.append(key, JSON.stringify(extraData[key]));
       }
     }
     sendFunc(formData);
     setRowFiles(null);
-  }
+  };
 
-  return{setRowFiles, prepareAndFetchData, rowFiles};
-}
+  return {setRowFiles, prepareAndFetchData, rowFiles};
+};

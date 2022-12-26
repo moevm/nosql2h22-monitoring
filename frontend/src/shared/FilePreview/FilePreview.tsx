@@ -1,5 +1,5 @@
-import React, { CSSProperties, FC } from 'react';
-import { Box } from "@mui/material";
+import React, { FC } from 'react';
+import { Box } from '@mui/material';
 
 import styles from './FilePreview.module.scss';
 
@@ -11,11 +11,11 @@ interface IFilePreviewProps {
 
 const FilePreview: FC<IFilePreviewProps> = ({type, file}) => {
   return (
-    <Box position='relative' width={190} height={190}>
-      <p className={styles.fileInfo}>{type=== 'video'? 'видео': 'изображение'}</p>
-      {type === 'video'
-      ? <video className={styles.file} src={file}/>
-      : <img className={styles.file} src={file} loading="lazy"/>}
+    <Box position="relative" width={190} height={190}>
+      <p className={styles.fileInfo}>{type === 'video' ? 'видео' : 'изображение'}</p>
+      {type === 'video' ?
+        <video className={styles.file} src={file}/> :
+        <img className={styles.file} src={file} loading="lazy"/>}
     </Box>
   );
 };

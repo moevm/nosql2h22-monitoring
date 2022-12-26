@@ -1,8 +1,8 @@
 import { AxiosResponse } from 'axios';
 
 import axios from '../axios';
-import { QueryParams } from "../types";
-import { HTTP } from "../types/http";
+import { QueryParams } from '../types';
+import { HTTP } from '../types/http';
 
 type Method = 'post' | 'put' | 'delete' | 'patch';
 

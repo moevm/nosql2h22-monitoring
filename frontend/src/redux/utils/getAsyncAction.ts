@@ -2,7 +2,7 @@ import { createAsyncThunk } from '@reduxjs/toolkit';
 import axios, { AxiosError } from 'axios';
 
 import { apiFunctionMutation, apiFunctionQuery, QueryConfig } from '../../api';
-import { Errors } from "../../types";
+import { Errors } from '../../types';
 
 export type IMutationFunction<Request, Response> = ReturnType<typeof apiFunctionMutation<Request, Response>>;
 export type IQueryFunction<Response> = ReturnType<typeof apiFunctionQuery<Response>>;

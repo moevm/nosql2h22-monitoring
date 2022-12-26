@@ -1,15 +1,16 @@
-import React, { FC, useContext, useState } from 'react';
-import { IQuestionProps } from "../Question.types";
-import { FormControl, FormControlLabel, FormLabel, Radio, RadioGroup } from "@mui/material";
-import { QuizContext } from "../../../components/PatientQuiz/QuizContext";
-import { useInput } from "../../../hooks/useInput";
+import React, { FC, useContext } from 'react';
+import { FormControl, FormControlLabel, Radio, RadioGroup } from '@mui/material';
+
+import { IQuestionProps } from '../Question.types';
+import { QuizContext } from '../../../components/PatientQuiz/QuizContext';
+import { useInput } from '../../../hooks/useInput';
 
 const ratingArray = Array(10).fill(0).map((_, index) => index + 1);
 
 const RatingQuestion: FC<IQuestionProps> = ({questionId}) => {
   const updateQuizContext = useContext(QuizContext);
   const [value, setValue] = useInput('', undefined,
-      value => updateQuizContext(prev => ({...prev, [questionId]: +value})));
+    value => updateQuizContext(prev => ({...prev, [questionId]: +value})));
 
   return (
     <FormControl >

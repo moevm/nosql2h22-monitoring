@@ -6,7 +6,7 @@ export interface IRecommendation {
 
 export interface IQuestion {
   questionId: string;
-  answersType: "numeric" | "logical" | "text" | "rating";
+  answersType: 'numeric' | 'logical' | 'text' | 'rating';
   text: string;
 }
 

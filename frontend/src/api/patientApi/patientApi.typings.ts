@@ -1,4 +1,4 @@
-import { IQuestion } from "../../types";
+import { IQuestion } from '../../types';
 
 export type QuizResponse = IQuestion[] | null;
 

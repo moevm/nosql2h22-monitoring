@@ -1,8 +1,9 @@
 import React, { FC, useContext } from 'react';
-import { TextField } from "@mui/material";
-import { IQuestionProps } from "../Question.types";
-import { useInput } from "../../../hooks/useInput";
-import { QuizContext } from "../../../components/PatientQuiz/QuizContext";
+import { TextField } from '@mui/material';
+
+import { IQuestionProps } from '../Question.types';
+import { useInput } from '../../../hooks/useInput';
+import { QuizContext } from '../../../components/PatientQuiz/QuizContext';
 
 const NumericQuestion: FC<IQuestionProps> = ({questionId}) => {
   const updateQuizContext = useContext(QuizContext);
