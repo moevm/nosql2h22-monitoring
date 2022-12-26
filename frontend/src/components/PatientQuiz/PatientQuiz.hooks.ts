@@ -1,18 +1,19 @@
 import { IQuizContext } from "./QuizContext";
 import { useState } from "react";
-import { HTTP } from "../../types/http";
 import { useFetchWithFormData } from "../../hooks/useFetchWithFormData";
+import { QuizResultItem } from "../../types";
+import { useAppDispatch } from "../../hooks/useRedux";
+import { sendPatientAnswers } from "../../redux/reducers/userReducer/userReducer";
+import { showError } from "../../utils/showError";
 
 export const useQuiz = (questionsLength: number) => {
   const [answers, setAnswers] = useState<IQuizContext>({});
-  const {setRowFiles, fetchData, rowFiles} = useFetchWithFormData<string>(HTTP.sendPatientAnswer);
+  const {setRowFiles, prepareAndFetchData, rowFiles} = useFetchWithFormData();
+  const dispatch = useAppDispatch();
 
   const handleAnswers = () => {
 
-    const answerArray: {
-      questionId: string,
-      answer: string | number | boolean
-    }[] = [];
+    const answerArray: QuizResultItem[] = [];
 
     for (let id in answers) {
       answerArray.push({
@@ -26,7 +27,12 @@ export const useQuiz = (questionsLength: number) => {
       return;
     }
 
-    fetchData({result: answerArray});
+    prepareAndFetchData(data => {
+      dispatch(sendPatientAnswers(data))
+        .unwrap()
+        .then(() => alert('Данные опроса отправлены'))
+        .catch(showError);
+    }, {quizResult: answerArray});
   }
 
   return {setAnswers, setRowFiles, sendAnswers: handleAnswers, rowFiles};

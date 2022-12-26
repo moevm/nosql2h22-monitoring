@@ -1,7 +1,8 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { UserReducerState } from "./userReducer.typings";
-import { getAsyncActionMutation } from "../../utils/getAsyncAction";
+import { getAsyncActionMutation, getAsyncActionQuery } from "../../utils/getAsyncAction";
 import { userApi } from "../../../api/userApi/userApi";
+import { patientApi } from "../../../api/patientApi/patientApi";
 
 const initialState: UserReducerState = {
   auth: {
@@ -11,6 +12,12 @@ const initialState: UserReducerState = {
 };
 
 export const signIn = getAsyncActionMutation('auth/signIn', userApi.signIn);
+
+export const getPatientQuizById = getAsyncActionQuery('auth/getPatientQuiz', patientApi.getQuiz);
+
+export const sendSignDocument = getAsyncActionMutation('auth/sendSignDocument', patientApi.sendSignDocument);
+
+export const sendPatientAnswers = getAsyncActionMutation('auth/sendPatientAnswers', patientApi.sendQuizAnswers);
 
 const userSlice = createSlice({
   name: 'auth',

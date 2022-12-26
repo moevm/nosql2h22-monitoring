@@ -4,6 +4,6 @@ export enum HTTP {
  getPatientRecommendations='/Patient/Recommendation',
  getPatientQuiz='/Patient/quiz',
  sendPatientAnswer='/Patient/answer',
- sendSignedMedia='/Patient/signedMedia/',
+ sendSignDocument='/Patient/signedMedia/',
  signIn='/GetUser'
 }

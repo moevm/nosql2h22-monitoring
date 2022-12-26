@@ -1,12 +1,9 @@
-import { HTTP } from "../types/http";
 import { useState } from "react";
-import { useFetch } from "./useFetch";
 
-export const useFetchWithFormData = <T>(url: HTTP) => {
+export const useFetchWithFormData = () => {
   const [rowFiles, setRowFiles] = useState<File[] | null>(null);
-  const [{error, data}, sendData] = useFetch<T>(url, undefined, false);
 
-  const fetchData = <V extends {}>(extraData?: V) => {
+  const prepareAndFetchData = <V extends {}>(sendFunc: (data: FormData) => void, extraData?: V) => {
     if (!rowFiles) {
       alert('Загрузите файлы');
       return;
@@ -22,9 +19,9 @@ export const useFetchWithFormData = <T>(url: HTTP) => {
         formData.append(key, JSON.stringify(extraData[key]));
       }
     }
-    sendData({body: formData, method: 'post'});
+    sendFunc(formData);
     setRowFiles(null);
   }
 
-  return{setRowFiles, data, error, fetchData, rowFiles};
+  return{setRowFiles, prepareAndFetchData, rowFiles};
 }

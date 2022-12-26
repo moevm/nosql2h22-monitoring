@@ -1,13 +1,14 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import PatientRecommendations from "../../components/PatientRecommendations/PatientRecommendations";
 
 import { Button, Stack, Typography } from "@mui/material";
 import PatientQuiz from "../../components/PatientQuiz/PatientQuiz";
-import { useFetch } from "../../hooks/useFetch";
-import { HTTP } from "../../types/http";
 import { IQuestion } from "../../types";
 import FileLoader from "../../shared/FileLoader/FileLoader";
 import { useFetchWithFormData } from "../../hooks/useFetchWithFormData";
+import { useAppDispatch, useAppSelector } from "../../hooks/useRedux";
+import { getPatientQuizById, sendSignDocument } from "../../redux/reducers/userReducer/userReducer";
+import { showError } from "../../utils/showError";
 
 const quesqion: IQuestion[] = [{
   answersType: 'numeric',
@@ -32,19 +33,33 @@ const quesqion: IQuestion[] = [{
 
 
 const PatientPage = () => {
-  const [{error, data: questions}] = useFetch<IQuestion[] | null>(HTTP.getPatientQuiz, '?id=10');
+  const [questions, setQuestion] = useState<IQuestion[] | null>(null);
   const [startQuiz, setStartQuiz] = useState(false);
-  const {setRowFiles, fetchData, rowFiles} = useFetchWithFormData(HTTP.sendSignedMedia);
+  const {setRowFiles, prepareAndFetchData, rowFiles} = useFetchWithFormData();
+  const dispatch = useAppDispatch();
+  const patientId = useAppSelector(state => state.user.userInfo!.id);
 
-  if (!error) {
-    return <Typography>Ошибка получения данных с бекенда</Typography>;
+  const sendSignMedia = () => {
+    prepareAndFetchData(data => {
+      dispatch(sendSignDocument(data))
+        .unwrap()
+        .then(() => alert('Данные отправлены'))
+        .catch(showError)
+    }, {patientId});
   }
+
+  useEffect(() => {
+    dispatch(getPatientQuizById({params: {patientId}}))
+      .unwrap()
+      .then(setQuestion)
+      .catch(showError)
+  }, []);
 
   return (
     <Stack direction="row" justifyContent={"space-between"} padding="0 100px">
       {startQuiz && questions
         ? <PatientQuiz questions={questions}/>
-        : <PatientQuiz questions={quesqion}/>/*<Typography>Нажмите на кнопку, чтобы начать опрос</Typography>*/}
+        : <Typography>Нажмите на кнопку, чтобы начать опрос</Typography>}
       <Stack spacing={1}>
         <PatientRecommendations recommendations={null}/>
         <Button
@@ -57,7 +72,7 @@ const PatientPage = () => {
         <Stack gap={1}>
           <Typography fontSize={20}>Загрузка подписанных документов</Typography>
           <FileLoader rowFiles={rowFiles} maxFiles={1} accept="image/*" setRowFiles={setRowFiles} text="Загрузить"/>
-          <Button variant="contained" onClick={() => fetchData()}>Отправить</Button>
+          <Button variant="contained" onClick={sendSignMedia}>Отправить</Button>
         </Stack>
         <Stack>
           неподписанные(ссылки)

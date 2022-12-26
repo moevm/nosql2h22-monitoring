@@ -4,8 +4,8 @@ import axios, { AxiosError } from 'axios';
 import { apiFunctionMutation, apiFunctionQuery, QueryConfig } from '../../api';
 import { Errors } from "../../types";
 
-type IMutationFunction<Request, Response> = ReturnType<typeof apiFunctionMutation<Request, Response>>;
-type IQueryFunction<Response> = ReturnType<typeof apiFunctionQuery<Response>>;
+export type IMutationFunction<Request, Response> = ReturnType<typeof apiFunctionMutation<Request, Response>>;
+export type IQueryFunction<Response> = ReturnType<typeof apiFunctionQuery<Response>>;
 
 interface AsyncThunkConfig {
   rejectValue: string;
