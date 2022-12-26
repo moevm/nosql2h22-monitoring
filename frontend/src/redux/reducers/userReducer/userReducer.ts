@@ -1,8 +1,9 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 import { getAsyncActionMutation, getAsyncActionQuery } from '../../utils/getAsyncAction';
 import { userApi } from '../../../api/userApi/userApi';
 import { patientApi } from '../../../api/patientApi/patientApi';
+import { Doctor } from '../../../types';
 
 import { UserReducerState } from './userReducer.typings';
 
@@ -21,10 +22,18 @@ export const sendSignDocument = getAsyncActionMutation('auth/sendSignDocument', 
 
 export const sendPatientAnswers = getAsyncActionMutation('auth/sendPatientAnswers', patientApi.sendQuizAnswers);
 
+export const getPatientRecommendations = getAsyncActionQuery('auth/rec', patientApi.getRecommendations);
+
+export const setDoctor = getAsyncActionMutation('auth/setDoctor', patientApi.setDoctor);
+
 const userSlice = createSlice({
   name: 'auth',
   initialState,
-  reducers: {},
+  reducers: {
+    updateDoctor(state, action: PayloadAction<[Doctor]>) {
+        state.userInfo!.doctors = action.payload;
+    }
+  },
   extraReducers: builder => {
     builder
       .addCase(signIn.pending, state => {
@@ -39,5 +48,7 @@ const userSlice = createSlice({
       });
   }
 });
+
+export const {updateDoctor} = userSlice.actions;
 
 export const {reducer: userReducer} = userSlice;

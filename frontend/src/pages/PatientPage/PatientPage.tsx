@@ -1,21 +1,23 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { Button, Stack, Typography } from '@mui/material';
 
 import PatientRecommendations from '../../components/PatientRecommendations/PatientRecommendations';
 import PatientQuiz from '../../components/PatientQuiz/PatientQuiz';
-import { IQuestion } from '../../types';
 import FileLoader from '../../shared/FileLoader/FileLoader';
 import { useFetchWithFormData } from '../../hooks/useFetchWithFormData';
 import { useAppDispatch, useAppSelector } from '../../hooks/useRedux';
-import { getPatientQuizById, sendSignDocument } from '../../redux/reducers/userReducer/userReducer';
+import { sendSignDocument } from '../../redux/reducers/userReducer/userReducer';
 import { showError } from '../../utils/showError';
 
+import { useChooseDoctor, useGetRecommendations, useStartQuiz } from './PatientPage.hooks';
+
 const PatientPage = () => {
-  const [questions, setQuestion] = useState<IQuestion[] | null>(null);
-  const [startQuiz, setStartQuiz] = useState(false);
   const {setRowFiles, prepareAndFetchData, rowFiles} = useFetchWithFormData();
   const dispatch = useAppDispatch();
-  const patientId = useAppSelector(state => state.user.userInfo!.id);
+  const {id: patientId, doctors} = useAppSelector(state => state.user.userInfo)!;
+  const {questions, startQuiz} = useStartQuiz(patientId);
+  const {recommendations} = useGetRecommendations(patientId);
+  const {chooseDoctor} = useChooseDoctor(patientId);
 
   const sendSignMedia = () => {
     prepareAndFetchData(data => {
@@ -26,23 +28,23 @@ const PatientPage = () => {
     }, {patientId});
   };
 
-  useEffect(() => {
-    dispatch(getPatientQuizById({params: {patientId}}))
-      .unwrap()
-      .then(setQuestion)
-      .catch(showError);
-  }, []);
+  if (doctors && doctors.length > 1) {
+    return (<Stack>
+      {doctors.map(doctor =>
+        <Typography onClick={() => chooseDoctor(doctor.id)} key={doctor.id}>{doctor.name}</Typography>)}
+    </Stack>);
+  }
 
   return (
     <Stack direction="row" justifyContent={'space-between'} padding="0 100px">
-      {startQuiz && questions ?
+      {questions ?
         <PatientQuiz questions={questions}/> :
         <Typography>Нажмите на кнопку, чтобы начать опрос</Typography>}
       <Stack spacing={1}>
-        <PatientRecommendations recommendations={null}/>
+        <PatientRecommendations recommendations={recommendations}/>
         <Button
           variant="contained"
-          onClick={() => setStartQuiz(true)}
+          onClick={startQuiz}
           disabled={!questions}
         >
           {questions ? 'Пройти опрос' : 'Опросов нет'}
