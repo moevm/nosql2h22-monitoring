@@ -12,17 +12,17 @@ const useRecommendationsHooks = () => {
     if (recomandation !== undefined) {
       if (edit) {
         // eslint-disable-next-line camelcase
-        const new_recomandations: IRecommendation[] = [...recommendations];
+        const newRecomandations: IRecommendation[] = [...recommendations];
         // eslint-disable-next-line camelcase
-        const new_recomandation: IRecommendation = {
+        const newRecomandation: IRecommendation = {
           id: recomandation.id,
           text,
           date: recomandation.date,
         };
         // eslint-disable-next-line camelcase
-        new_recomandations[index] = new_recomandation;
+        newRecomandations[index] = newRecomandation;
         //TODO: POST /Patient/Recommendation
-        console.log(new_recomandations);
+        console.log(newRecomandations);
         setEdit(null);
       } else {
         setText(recomandation.text);

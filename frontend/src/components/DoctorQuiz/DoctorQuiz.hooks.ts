@@ -36,17 +36,17 @@ const useDoctorQuizHooks = () => {
     if (question !== undefined) {
       if (edit) {
         // eslint-disable-next-line camelcase
-        const new_questions: IQuestion[] = [...questions];
+        const newQuestions: IQuestion[] = [...questions];
         // eslint-disable-next-line camelcase
-        const new_question: IQuestion = {
+        const newQuestion: IQuestion = {
           questionId: question.questionId,
           text,
           answersType,
         };
         // eslint-disable-next-line camelcase
-        new_questions[index] = new_question;
+        newQuestions[index] = newQuestion;
         //TODO: POST /Patient/quiz
-        console.log(new_questions);
+        console.log(newQuestions);
         setEdit(null);
       } else {
         setText(question.text);

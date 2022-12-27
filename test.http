@@ -1,0 +1,10 @@
+GET  http://localhost:5000/GetUser?login=doctor
+
+
+###
+
+
+POST  http://localhost:5000/GetUser
+Content-Type: application/json
+
+{"login": "patient"}
