@@ -1,0 +1,12 @@
+.patient-info__quiz-result{
+	font-size: 20px;
+	border: 1px solid;
+	margin: 5px 0;
+}
+.patient-info__quiz-results{
+	padding: 0 20px;
+}
+
+.patient-info__quiz-result__answer{
+	margin : 0 20px;
+}

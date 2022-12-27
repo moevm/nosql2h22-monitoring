@@ -9,4 +9,6 @@ export enum HTTP {
   sendSignDocument = "/Patient/signedMedia/",
   signIn = "/GetUser",
   setDoctor = "/Patient/setDoctor",
+  setRecommendation = "/Patient/recommendation",
+  setQuiz = "Patient/quiz",
 }

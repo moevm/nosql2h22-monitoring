@@ -1,23 +1,36 @@
 import React, { ChangeEvent, FC, useState } from "react";
-import { Button, TextField, MenuItem } from "@mui/material";
+import { Button, TextField, MenuItem, Typography } from "@mui/material";
 
 import { IQuestion } from "../../types";
+
 import useDoctorQuizHooks from "./DoctorQuiz.hooks";
 
+import "./DoctorQuiz.css";
 interface IDoctorQuizProps {
   questions: IQuestion[];
+  refreshPatient: () => void;
+  patientId: string;
 }
 
-const DoctorQuiz: FC<IDoctorQuizProps> = ({ questions }) => {
+const DoctorQuiz: FC<IDoctorQuizProps> = ({
+  questions,
+  refreshPatient,
+  patientId,
+}) => {
   const {
     edit,
     text,
     answersType,
     answersTypes,
+    newQuestionText,
+    newQuestionAnswersType,
     editMode,
     inputText,
     inputAnswersType,
-  } = useDoctorQuizHooks();
+    inputQuestionText,
+    inputQuestionAnswersType,
+    createQuestion,
+  } = useDoctorQuizHooks(refreshPatient, patientId);
   return (
     <>
       <div className="patient-info__quizzes">
@@ -27,7 +40,7 @@ const DoctorQuiz: FC<IDoctorQuizProps> = ({ questions }) => {
               key={`question_${question.questionId}`}
               className="patient-info__quiz"
             >
-              <div className="patient-info__quiz__element">
+              <Typography fontSize={20} className="patient-info__quiz__element">
                 {edit === question.questionId ? (
                   <TextField
                     label="text"
@@ -38,8 +51,12 @@ const DoctorQuiz: FC<IDoctorQuizProps> = ({ questions }) => {
                 ) : (
                   question.text
                 )}
-              </div>
-              <div className="patient-info__quiz__element">
+              </Typography>
+              <Typography
+                color={"blue"}
+                fontSize={20}
+                className="patient-info__quiz__element"
+              >
                 {edit === question.questionId ? (
                   <TextField
                     label="type"
@@ -57,18 +74,45 @@ const DoctorQuiz: FC<IDoctorQuizProps> = ({ questions }) => {
                 ) : (
                   question.answersType
                 )}
-              </div>
-              <Button
-                onClick={() => editMode(question.questionId, questions)}
-                variant={
-                  edit === question.questionId ? "contained" : "outlined"
-                }
-              >
-                {edit === question.questionId ? "Save" : "Edit"}
-              </Button>
+              </Typography>
+              {/*<Button*/}
+              {/*  disabled={edit !== null && edit !== question.questionId}*/}
+              {/*  onClick={() => editMode(question.questionId, questions)}*/}
+              {/*  variant={*/}
+              {/*    edit === question.questionId ? "contained" : "outlined"*/}
+              {/*  }*/}
+              {/*>*/}
+              {/*  {edit === question.questionId ? "Save" : "Edit"}*/}
+              {/*</Button>*/}
             </div>
           );
         })}
+        <div className="patient-info__quiz__element">
+          <TextField
+            sx={{ width: "80%" }}
+            label="text"
+            variant="standard"
+            value={newQuestionText}
+            onChange={inputQuestionText}
+          />
+          <TextField
+            sx={{ width: "20%" }}
+            label="type"
+            variant="standard"
+            select
+            value={newQuestionAnswersType}
+            onChange={inputQuestionAnswersType}
+          >
+            {answersTypes.map((option) => (
+              <MenuItem key={option.value} value={option.value}>
+                {option.label}
+              </MenuItem>
+            ))}
+          </TextField>
+          <Button size="large" variant="contained" onClick={createQuestion}>
+            CREATE
+          </Button>
+        </div>
       </div>
     </>
   );

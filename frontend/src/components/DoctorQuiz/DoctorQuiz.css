@@ -1,0 +1,17 @@
+.patient-info__quizzes{
+	display: flex;
+	flex-direction: column;
+	min-width: 100%;
+}
+
+.patient-info__quiz{
+	display: flex;
+	flex-direction: column;
+	border-bottom: 1px solid;
+	margin: 0 10px;
+}
+
+
+.patient-info__quiz__element{
+	padding: 10px 20px
+}

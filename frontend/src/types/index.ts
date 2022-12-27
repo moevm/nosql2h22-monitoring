@@ -6,15 +6,15 @@ export interface IRecommendation {
 
 export interface IQuestion {
   questionId: string;
-  answersType: 'numeric' | 'logical' | 'text' | 'rating';
+  answersType: "numeric" | "logical" | "text" | "rating";
   text: string;
 }
 
 export enum Errors {
-  UNEXPECTED_ERROR='Непредвиденная ошибка. Попробуйте позже',
+  UNEXPECTED_ERROR = "Непредвиденная ошибка. Попробуйте позже",
 }
 
-export type QueryParams = {[key in string]: string};
+export type QueryParams = { [key in string]: string };
 
 type patientId = string;
 type doctorId = string;
@@ -22,7 +22,7 @@ type doctorId = string;
 export interface Doctor {
   id: string;
   name: string;
-  patients: patientId[]
+  patients: patientId[];
 }
 
 export interface QuizResultItem {
@@ -33,7 +33,7 @@ export interface QuizResultItem {
 export interface QuizResult {
   id: string;
   date: Date;
-  result: QuizResultItem[]
+  result: QuizResultItem[];
 }
 
 export interface Patient {
@@ -41,14 +41,14 @@ export interface Patient {
   name: string;
   doctor: doctorId | null;
   quiz: IQuestion[];
-  quiz_results: QuizResult[]
-  recommendations: IRecommendation[]
+  quiz_results: QuizResult[];
+  recommendations: IRecommendation[];
 }
 
 export interface User {
-  role: 'doctor' | 'patient';
+  role: "doctor" | "patient";
   name: string;
   id: string;
-  doctors?: Doctor[]
-  patients?: Patient[]
+  doctors?: Doctor[];
+  patients?: Patient[];
 }

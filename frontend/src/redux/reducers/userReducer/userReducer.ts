@@ -6,6 +6,7 @@ import {
 } from "../../utils/getAsyncAction";
 import { userApi } from "../../../api/userApi/userApi";
 import { patientApi } from "../../../api/patientApi/patientApi";
+import { doctorApi } from "../../../api/doctorApi/doctorApi";
 import { Doctor } from "../../../types";
 
 import { UserReducerState } from "./userReducer.typings";
@@ -37,6 +38,16 @@ export const sendSignDocument = getAsyncActionMutation(
 export const sendPatientAnswers = getAsyncActionMutation(
   "auth/sendPatientAnswers",
   patientApi.sendQuizAnswers
+);
+
+export const sendDoctorQuestion = getAsyncActionMutation(
+  "auth/sendDoctorQuestion",
+  doctorApi.sendDoctorQuestion
+);
+
+export const sendDoctorRecommendation = getAsyncActionMutation(
+  "auth/sendDoctorRecommendation",
+  doctorApi.sendDoctorRecommendation
 );
 
 export const getPatientRecommendations = getAsyncActionQuery(

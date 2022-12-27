@@ -1,0 +1,15 @@
+.patient-info{
+	margin: 0 10%;
+	font-size: 40px;
+}
+
+.patient-info__element{
+	margin: 10px 0;
+}
+
+.patient-info__description{
+	display: flex;
+	margin: 0 20px;
+	flex-direction: column;
+	align-items: flex-start;
+}

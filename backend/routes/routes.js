@@ -30,12 +30,39 @@ router.get('/Patient', (req, res, next) => {
                     answersType: "numeric",
                     text: "some text"
 
+                },
+                {
+                    questionId: "2",
+                    answersType: "numeric",
+                    text: "some text"
+
                 }
             ],
-            quiz_results: [],
+            quiz_results: [
+                {
+                    id: "1",
+                    date: new Date(),
+                    result: [
+                        {
+                            questionId: "1",
+                            answer: 12
+                        },
+                        {
+                            questionId: "2",
+                            answer: 13
+                        },
+                    ]
+                }
+
+            ],
             recommendations: [
                 {
                     id: "1",
+                    date: new Date().toISOString(),
+                    text: "some text"
+                },
+                {
+                    id: "2",
                     date: new Date().toISOString(),
                     text: "some text"
                 }
@@ -43,6 +70,26 @@ router.get('/Patient', (req, res, next) => {
         }
     );
 });
+
+router.post('/Patient/quiz', (req, res, next) => {
+    const body = req.body;
+    console.log(body)
+    res.send({
+        questionId: "new",
+        answersType: body.quiz.answersType,
+        text: body.quiz.text
+    });
+})
+
+router.post('/Patient/recommendation', (req, res, next) => {
+    const body = req.body;
+    console.log(body)
+    res.send({
+        id: "new",
+        date: new Date(),
+        text: body.text
+    });
+})
 
 router.post('/GetUser/', (req, res, next) => {
     const login = req.body.login;
