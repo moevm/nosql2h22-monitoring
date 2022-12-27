@@ -1,13 +1,16 @@
-import React from 'react';
-import { useParams } from 'react-router-dom';
+import React from "react";
+import { useParams } from "react-router-dom";
 
-import PatientPage from '../pages/PatientPage/PatientPage';
+import DoctorPage from "../pages/DoctorPage/DoctorPage";
+import PatientPage from "../pages/PatientPage/PatientPage";
 
 const UserComponent = () => {
-  const {login} = useParams();
+  const { login } = useParams();
 
-  if (login === 'patient') {
-    return <PatientPage/>;
+  if (login === "patient") {
+    return <PatientPage />;
+  } else if (login === "doctor") {
+    return <DoctorPage />;
   }
 
   return <>Hello, {login}</>;
