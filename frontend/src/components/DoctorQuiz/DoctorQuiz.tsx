@@ -2,72 +2,22 @@ import React, { ChangeEvent, FC, useState } from "react";
 import { Button, TextField, MenuItem } from "@mui/material";
 
 import { IQuestion } from "../../types";
+import useDoctorQuizHooks from "./DoctorQuiz.hooks";
 
 interface IDoctorQuizProps {
   questions: IQuestion[];
 }
 
 const DoctorQuiz: FC<IDoctorQuizProps> = ({ questions }) => {
-  const answersTypes: {
-    value: "numeric" | "logical" | "text" | "rating";
-    label: "numeric" | "logical" | "text" | "rating";
-  }[] = [
-    {
-      value: "numeric",
-      label: "numeric",
-    },
-    {
-      value: "logical",
-      label: "logical",
-    },
-    {
-      value: "text",
-      label: "text",
-    },
-    {
-      value: "rating",
-      label: "rating",
-    },
-  ];
-  const [edit, setEdit] = useState<string | null>(null);
-  const [text, setText] = useState<string>("");
-  const [answersType, setAnswersType] = useState<
-    "numeric" | "logical" | "text" | "rating"
-  >("text");
-  const editMode = (questionId: string) => {
-    const index = questions.findIndex(
-      (question: IQuestion) => question.questionId === questionId
-    );
-    const question: IQuestion | undefined = questions[index];
-    if (question !== undefined) {
-      if (edit) {
-        // eslint-disable-next-line camelcase
-        const new_questions: IQuestion[] = [...questions];
-        // eslint-disable-next-line camelcase
-        const new_question: IQuestion = {
-          questionId: question.questionId,
-          text,
-          answersType,
-        };
-        // eslint-disable-next-line camelcase
-        new_questions[index] = new_question;
-        //TODO: POST /Patient/quiz
-        console.log(new_questions);
-        setEdit(null);
-      } else {
-        setText(question.text);
-        setAnswersType(question.answersType);
-        setEdit(question.questionId);
-      }
-    }
-  };
-  const inputText = (event: ChangeEvent<HTMLInputElement>) => {
-    setText(event.target.value.trim());
-  };
-
-  const inputAnswersType = (event: ChangeEvent<HTMLInputElement>) => {
-    setText(event.target.value.trim());
-  };
+  const {
+    edit,
+    text,
+    answersType,
+    answersTypes,
+    editMode,
+    inputText,
+    inputAnswersType,
+  } = useDoctorQuizHooks();
   return (
     <>
       <div className="patient-info__quizzes">
@@ -109,7 +59,7 @@ const DoctorQuiz: FC<IDoctorQuizProps> = ({ questions }) => {
                 )}
               </div>
               <Button
-                onClick={() => editMode(question.questionId)}
+                onClick={() => editMode(question.questionId, questions)}
                 variant={
                   edit === question.questionId ? "contained" : "outlined"
                 }

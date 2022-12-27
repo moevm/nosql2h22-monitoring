@@ -1,7 +1,7 @@
 import React, { FC } from "react";
 
 import DoctorQuiz from "../DoctorQuiz/DoctorQuiz";
-import DoctorRecomendations from "../DoctorRecommendations/DoctorRecomendations.";
+import DoctorRecommendations from "../DoctorRecommendations/DoctorRecommendations.";
 
 import { getPatient } from "./PatientInfo.hooks";
 
@@ -25,7 +25,7 @@ const PatientInfo: FC<IPatientInfoProps> = ({ patientId }) => {
             <DoctorQuiz questions={patient.quiz} />
           </div>
           <div className="patient-info__element">
-            <DoctorRecomendations recomandations={patient.recommendations} />
+            <DoctorRecommendations recommendations={patient.recommendations} />
           </div>
         </div>
       </>
