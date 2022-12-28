@@ -14,3 +14,4 @@ frontend/.idea/prettier.xml
 frontend/.idea/vcs.xml
 frontend/.idea/inspectionProfiles/Project_Default.xml
 frontend/package-lock.json
+backend/package-lock.json

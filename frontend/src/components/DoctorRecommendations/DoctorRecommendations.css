@@ -1,0 +1,29 @@
+.patient-info__recommendation{
+	display: flex;
+	flex-direction: column;
+	border-bottom: 1px solid;
+	margin: 0 10px;
+}
+
+.patient-info__recommendation__text{
+
+}
+
+.patient-info__recommendation__element.patient-info__recommendations__date{
+	background-color: #ebebeb;
+}
+
+.patient-info__recommendation__element.patient-info__recommendation__text {
+	min-height: 130px;
+	margin-bottom: 20px;
+}
+
+.patient-info__recommendation__element {
+	padding: 10px 20px;
+}
+
+.patient-info__recommendations{
+	display: flex;
+	flex-direction: column;
+	min-width: 100%;
+}
