@@ -31,4 +31,4 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 app.use("/", routes);
 
-app.listen(port);
+app.listen(port, () => console.log('server start'));

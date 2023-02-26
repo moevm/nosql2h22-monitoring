@@ -2,6 +2,7 @@ import { apiFunctionMutation, apiFunctionQuery } from "../index";
 import { HTTP } from "../../types/http";
 
 import {
+  PatientInfo,
   PatientQuizAnswersRequest,
   PatientQuizAnswersResponse,
   PatientRecommendationResponse,
@@ -10,12 +11,13 @@ import {
   SetDoctorResponse,
   SignDocumentRequest,
   SignDocumentResponse,
-  PatientInfo,
+  UnsignedMediaResponse,
 } from "./patientApi.typings";
 
 export const patientApi = {
   getPatient: apiFunctionQuery<PatientInfo>(HTTP.getPatientById),
   getQuiz: apiFunctionQuery<QuizResponse>(HTTP.getPatientQuiz),
+  getUnsignedMedia: apiFunctionQuery<UnsignedMediaResponse>(HTTP.getUnsignedMedia),
   sendSignDocument: apiFunctionMutation<
     SignDocumentRequest,
     SignDocumentResponse

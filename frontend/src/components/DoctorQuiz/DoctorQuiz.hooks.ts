@@ -1,4 +1,5 @@
 import { ChangeEvent, useState } from "react";
+
 import { useFetchWithFormData } from "../../hooks/useFetchWithFormData";
 import { useAppDispatch } from "../../hooks/useRedux";
 import { IQuestion } from "../../types";
@@ -12,15 +13,15 @@ const toAnswersType = (
   str: string
 ): "numeric" | "logical" | "text" | "rating" => {
   switch (str) {
-    case "numeric":
-      return "numeric";
+  case "numeric":
+    return "numeric";
 
-    case "logical":
-      return "logical";
-    case "text":
-      return "text";
-    default:
-      return "rating";
+  case "logical":
+    return "logical";
+  case "text":
+    return "text";
+  default:
+    return "rating";
   }
 };
 const useDoctorQuizHooks = (refreshPatient: () => void, patientId: string) => {
