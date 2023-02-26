@@ -3,7 +3,7 @@ import { useState } from 'react';
 export const useFetchWithFormData = () => {
   const [rowFiles, setRowFiles] = useState<File[] | null>(null);
 
-  const prepareAndFetchData = <V extends object>(sendFunc: (data: FormData) => void, extraData?: V) => {
+  const prepareData = <V extends Record<string, any>>(fetchFunc: (data: FormData) => void, extraData?: V) => {
     if (!rowFiles) {
       alert('Загрузите файлы');
       return;
@@ -20,9 +20,9 @@ export const useFetchWithFormData = () => {
         formData.append(key, JSON.stringify(extraData[key]));
       }
     }
-    sendFunc(formData);
+    fetchFunc(formData);
     setRowFiles(null);
   };
 
-  return {setRowFiles, prepareAndFetchData, rowFiles};
+  return {setRowFiles, prepareData, rowFiles};
 };

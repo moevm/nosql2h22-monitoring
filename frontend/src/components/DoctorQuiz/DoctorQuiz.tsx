@@ -65,7 +65,7 @@ const DoctorQuiz: FC<IDoctorQuizProps> = ({
                     value={answersType}
                     onChange={inputAnswersType}
                   >
-                    {answersTypes.map((option) => (
+                    {answersTypes.map(option => (
                       <MenuItem key={option.value} value={option.value}>
                         {option.label}
                       </MenuItem>
@@ -103,7 +103,7 @@ const DoctorQuiz: FC<IDoctorQuizProps> = ({
             value={newQuestionAnswersType}
             onChange={inputQuestionAnswersType}
           >
-            {answersTypes.map((option) => (
+            {answersTypes.map(option => (
               <MenuItem key={option.value} value={option.value}>
                 {option.label}
               </MenuItem>

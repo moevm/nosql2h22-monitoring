@@ -25,6 +25,11 @@ export const getPatientQuizById = getAsyncActionQuery(
   patientApi.getQuiz
 );
 
+export const getUnsignedMedia = getAsyncActionQuery(
+  'patient/getUnsigned',
+  patientApi.getUnsignedMedia
+);
+
 export const getPatientById = getAsyncActionQuery(
   "auth/getPatientById",
   patientApi.getPatient
@@ -68,21 +73,21 @@ const userSlice = createSlice({
       state.userInfo!.doctors = action.payload;
     },
   },
-  extraReducers: (builder) => {
+  extraReducers: builder => {
     builder
-      .addCase(signIn.pending, (state) => {
+      .addCase(signIn.pending, state => {
         state.auth.isLoading = true;
       })
       .addCase(signIn.fulfilled, (state, action) => {
         state.auth.isLoading = false;
         state.userInfo = action.payload;
       })
-      .addCase(signIn.rejected, (state) => {
+      .addCase(signIn.rejected, state => {
         state.auth.isLoading = false;
       });
   },
 });
 
-export const { updateDoctor } = userSlice.actions;
+export const {updateDoctor} = userSlice.actions;
 
-export const { reducer: userReducer } = userSlice;
+export const {reducer: userReducer} = userSlice;

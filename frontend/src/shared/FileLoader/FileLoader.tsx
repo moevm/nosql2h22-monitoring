@@ -49,7 +49,7 @@ const FileLoader: FC<IFileLoaderProps> = ({maxFiles, setRowFiles, text, accept, 
     <>
       <Button variant="contained" component="label">
         {text}
-        <input type="file" onChange={openFiles} accept={accept} hidden multiple={maxFiles > 1}/>
+        <input type="file" onChange={openFiles} name='media' accept={accept} hidden multiple={maxFiles > 1}/>
       </Button>
       <ImageList sx={{width: 600}} cols={3} rowHeight={190}>
         {files.map((file, index) =>

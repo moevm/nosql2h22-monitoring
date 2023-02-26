@@ -24,3 +24,5 @@ export interface SetDoctorRequest {
 export interface SetDoctorResponse {
   doctors: [Doctor];
 }
+
+export type UnsignedMediaResponse = string[];

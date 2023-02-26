@@ -17,7 +17,12 @@ export const useStartQuiz = (patientId: string) => {
   const startQuiz = () => {
     dispatch(getPatientQuizById({params: {patientId}}))
       .unwrap()
-      .then(setQuestion)
+      .then(data => {
+        if (!data) {
+          alert('Опросов нет');
+        }
+        setQuestion(data);
+      })
       .catch(showError);
   };
 
