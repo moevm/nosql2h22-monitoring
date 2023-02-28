@@ -33,11 +33,11 @@ const DoctorQuizResults: FC<IDoctorQuizResultsProps> = ({
       );
       if (question !== undefined) {
         switch (question.answersType) {
-          case "logical":
-            if (result) return "Yes";
-            else return "No";
-          default:
-            return String(result);
+        case "logical":
+          if (result) return "Yes";
+          else return "No";
+        default:
+          return String(result);
         }
       }
     }

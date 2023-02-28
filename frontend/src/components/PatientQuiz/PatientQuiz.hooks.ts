@@ -10,7 +10,7 @@ import { IQuizContext } from './QuizContext';
 
 export const useQuiz = (questionsLength: number) => {
   const [answers, setAnswers] = useState<IQuizContext>({});
-  const {setRowFiles, prepareAndFetchData, rowFiles} = useFetchWithFormData();
+  const {setRowFiles, prepareData, rowFiles} = useFetchWithFormData();
   const dispatch = useAppDispatch();
 
   const handleAnswers = () => {
@@ -29,7 +29,7 @@ export const useQuiz = (questionsLength: number) => {
       return;
     }
 
-    prepareAndFetchData(data => {
+    prepareData(data => {
       dispatch(sendPatientAnswers(data))
         .unwrap()
         .then(() => alert('Данные опроса отправлены'))

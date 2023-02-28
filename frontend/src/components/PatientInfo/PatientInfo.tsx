@@ -1,11 +1,11 @@
 import React, { FC, useState } from "react";
+import { Typography, Button } from "@mui/material";
 
 import DoctorQuiz from "../DoctorQuiz/DoctorQuiz";
 import DoctorRecommendations from "../DoctorRecommendations/DoctorRecommendations";
 import DoctorQuizResults from "../DoctorQuizResults/DoctorQuizResults";
 
 import { getPatient } from "./PatientInfo.hooks";
-import { Typography, Button } from "@mui/material";
 import "./PatientInfo.css";
 interface IPatientInfoProps {
   patientId: string;
