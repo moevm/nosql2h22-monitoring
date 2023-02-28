@@ -25,7 +25,7 @@ app.use(function (req, res, next) {
     next();
 });
 app.use('/public', express.static('public'));
-
+app.use('/downloads', express.static('downloads'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 

@@ -1,114 +1,48 @@
 const express = require('express');
 const router = express.Router();
+const UsersController = require('../controllers/Users');
+const PatientsController = require('../controllers/Patients');
+const upload = require('../upload');
+const db = require('../db.js');
 
-router.get('/IsUserExists', (req, res, next) => {
-    const login = req.query.login;
-    console.log(login);
-    //find if exists
-    res.send({ IsExists: true });
-});
+// Test
 
-router.get('/UserProfiles', (req, res, next) => {
-    const login = req.query.login;
-    console.log(login);
-    //check if user is doctor or patient
-    res.send({ IsDoctor: true, IsPatient: false });
-});
+router.post('/upload', upload.any(), PatientsController.up);
 
-router.get('/Patient', (req, res, next) => {
-    const patientId = req.query.patientId;
-    console.log(patientId);
-    //check if user is doctor or patient
-    res.send(
-        {
-            id: "1",
-            name: "Heisenberg",
-            doctor: "2",
-            quiz: [
-                {
-                    questionId: "1",
-                    answersType: "numeric",
-                    text: "some text"
+// User
 
-                },
-                {
-                    questionId: "2",
-                    answersType: "numeric",
-                    text: "some text"
+router.post('/GetUser/', UsersController.GetUser); // +
+router.get('/GetAllUsers/', UsersController.GetAllUsers);
 
-                }
-            ],
-            quiz_results: [
-                {
-                    id: "1",
-                    date: new Date(),
-                    result: [
-                        {
-                            questionId: "1",
-                            answer: 12
-                        },
-                        {
-                            questionId: "2",
-                            answer: 13
-                        },
-                    ]
-                }
+// Patient
 
-            ],
-            recommendations: [
-                {
-                    id: "1",
-                    date: new Date().toISOString(),
-                    text: "some text"
-                },
-                {
-                    id: "2",
-                    date: new Date().toISOString(),
-                    text: "some text"
-                }
-            ]
-        }
-    );
-});
+router.get('/Patient', PatientsController.GetPatient); // +
 
-router.post('/Patient/quiz', (req, res, next) => {
-    const body = req.body;
-    console.log(body)
-    res.send({
-        questionId: "new",
-        answersType: body.quiz.answersType,
-        text: body.quiz.text
-    });
-})
+// Quiz
 
-router.post('/Patient/recommendation', (req, res, next) => {
-    const body = req.body;
-    console.log(body)
-    res.send({
-        id: "new",
-        date: new Date(),
-        text: body.text
-    });
-})
+router.get('/Patient/quiz', PatientsController.GetPatientQuiz);
+router.post('/Patient/quiz', PatientsController.CreateQuiz); // ?
 
-router.post('/GetUser/', (req, res, next) => {
-    const login = req.body.login;
-    console.log(login);
-    // const profile = req.query.profile;
-    let result = {}
-    if (login === 'patient')
-        res.send({
-            role: 'patient',
-            name: 'Heisenberg',
-            id: '1',
-        });
-    if (login === 'doctor') {
-        res.send({
-            role: 'doctor',
-            name: 'doc',
-            id: '2',
-        })
-    }
-});
+// Answers
+
+router.get('/Patient/answers/media', PatientsController.GetAnswersMedia);
+router.post('/Patient/answer', PatientsController.CreateAnswer); // ?
+
+// Media
+
+router.get('/Patient/unsignedMedia', PatientsController.GetUnsignedMedia);
+router.post('/Patient/unsignedMedia', PatientsController.CreateUnsignedMedia); // ?
+
+router.get('/Patient/signedMedia', PatientsController.GetSignedMedia);
+router.post('/Patient/signedMedia', PatientsController.CreateSignedMedia); // ?
+
+// Recommendation
+
+router.get('/Patient/Recommendation', PatientsController.GetRecommendations); // +
+router.post('/Patient/recommendation', PatientsController.CreateRecommendation); // +
+
+// Doctor
+
+router.patch('/Patient/setDoctor', PatientsController.SetDoctor); //+
 
 module.exports = router;
