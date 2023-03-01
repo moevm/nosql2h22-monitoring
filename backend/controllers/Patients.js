@@ -2,6 +2,7 @@ const Patients = require('../models/Patient');
 const QuizResultMedia = require('../models/QuizResultMedia');
 const PatientMedia = require('../models/PatientMedia');
 const Recommendation = require('../models/Recommendation');
+const Question = require('../models/Question');
 
 module.exports.up = async function(req, res){
     const files = req.files;
@@ -30,7 +31,8 @@ module.exports.GetPatientQuiz = async function(req, res){
     const patientId = req.query.patientId;
     const patient = await Patients.findById(patientId).exec();
     if(!patient) {res.sendStatus(404); return;}
-    res.send({values: patient.quiz});
+    const values = await patient.populate('quiz').exec();
+    res.send({values: values});
 };
 
 /**
@@ -44,8 +46,15 @@ module.exports.CreateQuiz = async function(req, res){
         res.sendStatus(404); 
         return;
     }
-    
-    patient.quiz = body.quiz;
+    const quiz = body.quiz;
+    quiz.forEach(async (question) => {
+        let newQuestion = new Question({
+            text: question.text,
+            answerType: question.answers_type
+        });
+        await newQuestion.save();
+        patient.quiz.push(newQuestion._id);
+    });
     await patient.save();
 };
 
