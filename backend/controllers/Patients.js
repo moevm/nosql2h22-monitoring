@@ -4,7 +4,8 @@ const PatientMedia = require('../models/PatientMedia');
 const Recommendation = require('../models/Recommendation');
 
 module.exports.up = async function(req, res){
-    res.send(req.file);
+    const files = req.files;
+    res.send(files);
 };
 
 /**
@@ -65,12 +66,13 @@ module.exports.GetAnswersMedia = async function(req, res){
  */
 module.exports.CreateAnswer = async function(req, res){
     const body = req.body;
+    const files = req.files;
     const newQR = new QuizResult({
         date: body.quizResult.date,
         Result: quizResult.Result
     });
     await newQR.save();
-    const src = req.file.path;
+    const src = files.map(f => f.path);
     const newQRMedia = new QuizResultMedia({
         src: src,
         create_at: newQR.date,
@@ -97,12 +99,12 @@ module.exports.GetUnsignedMedia = async function(req, res){
  */
 module.exports.CreateUnsignedMedia = async function(req, res){
     const body = req.body;
+    const files = req.files;
     const patientId = body.patient;
-    const media = body.media;
     let pMedia = await PatientMedia.findOne({patient: patientId}).exec();
     if(!pMedia) {res.sendStatus(404); return;}
-    const path = req.file.path; // save media
-    pMedia.src = path;
+    const src = files.map(f => f.path); // save media
+    pMedia.src = src;
     pMedia.created_at = new Date();
     pMedia.type = 'Unsigned';
     await pMedia.save();
@@ -125,12 +127,12 @@ module.exports.GetSignedMedia = async function(req, res){
  */
 module.exports.CreateSignedMedia = async function(req, res){
     const body = req.body;
+    const files = req.files;
     const patientId = body.patient;
-    const media = body.media;
     let pMedia = await PatientMedia.findOne({patient: patientId}).exec();
     if(!pMedia) {res.sendStatus(404); return;}
-    const path = req.file.path; // save media
-    pMedia.src = path;
+    const src = files.map(f => f.path);
+    pMedia.src = src;
     pMedia.created_at = new Date();
     pMedia.type = 'Signed';
     await pMedia.save();
