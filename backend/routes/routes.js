@@ -27,15 +27,15 @@ router.post('/Patient/quiz', PatientsController.CreateQuiz); // ?
 // Answers
 
 router.get('/Patient/answers/media', PatientsController.GetAnswersMedia);
-router.post('/Patient/answer', PatientsController.CreateAnswer); // ?
+router.post('/Patient/answer', upload.any(), PatientsController.CreateAnswer); // ?
 
 // Media
 
 router.get('/Patient/unsignedMedia', PatientsController.GetUnsignedMedia);
-router.post('/Patient/unsignedMedia', PatientsController.CreateUnsignedMedia); // ?
+router.post('/Patient/unsignedMedia', upload.any(), PatientsController.CreateUnsignedMedia); // ?
 
 router.get('/Patient/signedMedia', PatientsController.GetSignedMedia);
-router.post('/Patient/signedMedia', PatientsController.CreateSignedMedia); // ?
+router.post('/Patient/signedMedia', upload.any(), PatientsController.CreateSignedMedia); // ?
 
 // Recommendation
 
