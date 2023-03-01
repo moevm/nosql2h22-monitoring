@@ -2,9 +2,9 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const QuizResultMediaSchema = new Schema({
-    src: {
+    src: [{
         type: String
-    },
+    }],
     create_at: {
         type: Date,
         default: Date.now
