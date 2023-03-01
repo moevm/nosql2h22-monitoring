@@ -29,10 +29,9 @@ module.exports.GetPatient = async function(req, res){
  */
 module.exports.GetPatientQuiz = async function(req, res){
     const patientId = req.query.patientId;
-    const patient = await Patients.findById(patientId).exec();
+    const patient = await Patients.findById(patientId).populate('quiz').exec();
     if(!patient) {res.sendStatus(404); return;}
-    const values = await patient.populate('quiz').exec();
-    res.send({values: values});
+    res.send({values: patient.quiz});
 };
 
 /**
@@ -47,15 +46,18 @@ module.exports.CreateQuiz = async function(req, res){
         return;
     }
     const quiz = body.quiz;
-    quiz.forEach(async (question) => {
+    let q_Ids = [];
+    for(const question of quiz){ // fuck forEach (maybe)
         let newQuestion = new Question({
             text: question.text,
             answerType: question.answers_type
         });
         await newQuestion.save();
-        patient.quiz.push(newQuestion._id);
-    });
+        q_Ids.push(newQuestion._id);
+    }
+    patient.quiz = q_Ids;
     await patient.save();
+    res.send(patient);
 };
 
 /**
@@ -76,8 +78,9 @@ module.exports.GetAnswersMedia = async function(req, res){
 module.exports.CreateAnswer = async function(req, res){
     const body = req.body;
     const files = req.files;
+    const quizResult = body.quizResult;
     const newQR = new QuizResult({
-        date: body.quizResult.date,
+        date: quizResult.date,
         Result: quizResult.Result
     });
     await newQR.save();
