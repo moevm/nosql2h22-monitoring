@@ -17,13 +17,7 @@ module.exports.GetUser = async function(req, res){
     let found;
     if(user.role === 'doctor'){
         found = await Doctors.findById(user.profile).exec();
-        resObj.patients = [];
-        found.patients.forEach(patientId => {
-            Patients.findById(patientId).select({'_id': 1, 'name': 1}).exec((err, p) => {
-                if(err) throw err;
-                resObj.patients.push({id: p._id, name: p.name});
-            });
-        });
+        resObj.patients = await Patients.find({doctor: found._id}).select({'_id': 1, 'name': 1}).exec();
     } else{
         found = await Patients.findById(user.profile).exec();
         resObj.doctors = [];

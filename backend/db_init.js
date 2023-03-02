@@ -15,4 +15,4 @@ newUsers.forEach(async (u) => {
     });
     await newUser.save();
 });
-db.connection.close();
+db.close();
