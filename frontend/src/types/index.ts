@@ -20,7 +20,7 @@ type patientId = string;
 type doctorId = string;
 
 export interface Doctor {
-  id: string;
+  _id: string;
   name: string;
   patients: patientId[];
 }
