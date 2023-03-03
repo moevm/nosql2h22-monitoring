@@ -1,7 +1,4 @@
 const mongoose = require('mongoose');
-const Question = require('./Question');
-const QuizResult = require('./QuizResult');
-const Recommendation = require('./Recommendation');
 const Schema = mongoose.Schema;
 
 const PatientSchema = new Schema({
