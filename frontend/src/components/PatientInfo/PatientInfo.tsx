@@ -1,9 +1,10 @@
 import React, { FC, useState } from "react";
-import { Typography, Button } from "@mui/material";
+import { Typography, Button, Stack } from "@mui/material";
 
 import DoctorQuiz from "../DoctorQuiz/DoctorQuiz";
 import DoctorRecommendations from "../DoctorRecommendations/DoctorRecommendations";
 import DoctorQuizResults from "../DoctorQuizResults/DoctorQuizResults";
+import FileLoader from "../../shared/FileLoader/FileLoader";
 
 import { getPatient } from "./PatientInfo.hooks";
 import "./PatientInfo.css";
@@ -12,42 +13,29 @@ interface IPatientInfoProps {
 }
 
 const PatientInfo: FC<IPatientInfoProps> = ({ patientId }) => {
-  const { patient, refreshPatient } = getPatient(patientId);
+  const { patient, refreshPatient, rowFiles, setRowFiles, sendAnswers } =
+    getPatient(patientId);
   const [recommendations, setRecommendations] = useState<boolean>(false);
   const [quiz, setQuiz] = useState<boolean>(false);
-  const [info, setInfo] = useState<boolean>(true);
+
   const [quizResults, setQuizResult] = useState<boolean>(false);
   if (patient) {
     return (
       <>
         <div className="patient-info">
           <div className="patient-info__element ">
-            <Button
-              sx={{ justifyContent: "left" }}
-              fullWidth
-              onClick={() => setInfo(!info)}
-              variant={info ? "outlined" : "contained"}
-            >
+            <div className="patient-info__description">
               <Typography variant="h3" fontSize={20}>
-                <h3>Info</h3>
+                <h3>
+                  <span>ID:</span> {patient._id}
+                </h3>
               </Typography>
-            </Button>
-            {info ? (
-              <div className="patient-info__description">
-                <Typography variant="h3" fontSize={20}>
-                  <h3>
-                    <span>ID:</span> {patient.id}
-                  </h3>
-                </Typography>
-                <Typography variant="h3" fontSize={20}>
-                  <h3>
-                    <span>Name:</span> {patient.name}
-                  </h3>
-                </Typography>
-              </div>
-            ) : (
-              ""
-            )}
+              <Typography variant="h3" fontSize={20}>
+                <h3>
+                  <span>Name:</span> {patient.name}
+                </h3>
+              </Typography>
+            </div>
           </div>
 
           <div className="patient-info__element">
@@ -111,6 +99,20 @@ const PatientInfo: FC<IPatientInfoProps> = ({ patientId }) => {
             ) : (
               ""
             )}
+          </div>
+          <div className="patient-info__element">
+            <Stack>
+              <FileLoader
+                rowFiles={rowFiles}
+                maxFiles={5}
+                setRowFiles={setRowFiles}
+                accept="image/*,video/*"
+                text="Загрузить файлы"
+              />
+              <Button variant="contained" onClick={sendAnswers}>
+                Отправить результаты
+              </Button>
+            </Stack>
           </div>
         </div>
       </>

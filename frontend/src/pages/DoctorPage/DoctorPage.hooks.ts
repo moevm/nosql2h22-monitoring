@@ -1,3 +1,9 @@
-import { useAppDispatch, useAppSelector } from "../../hooks/useRedux";
+import React, { useState } from "react";
 
-export default {};
+const useDoctorPage = () => {
+  const [patientId, setPatientId] = useState<string | null>(null);
+
+  return { patientId, setPatientId };
+};
+
+export default useDoctorPage;

@@ -37,7 +37,7 @@ export interface QuizResult {
 }
 
 export interface Patient {
-  id: string;
+  _id: string;
   name: string;
   doctor: doctorId | null;
   quiz: IQuestion[];

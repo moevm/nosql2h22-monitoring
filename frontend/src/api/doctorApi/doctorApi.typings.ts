@@ -1,5 +1,6 @@
 import { IQuestion, IRecommendation } from "../../types";
 
+type path = string;
 export interface SetQuestionRequest {
   patientId: string;
   quiz: {
@@ -7,6 +8,10 @@ export interface SetQuestionRequest {
     answersType: "numeric" | "logical" | "text" | "rating";
   };
 }
+
+export type SetDoctorUnsignedDocumentsRequest = FormData;
+
+export type SetDoctorUnsignedDocumentsResponse = path;
 
 export type SetQuestionResponse = IQuestion;
 

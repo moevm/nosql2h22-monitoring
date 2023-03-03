@@ -3,23 +3,30 @@ from pymongo import MongoClient
 
 db = MongoClient()
 
-test_database = db['test_database']
-test_collection = test_database["test_collection"]
+for database in db.list_databases():
+    print(database)
 
-print("Before insert:")
-for x in test_collection.find():
-  print(x)
+test_database = db['monitoring']
+users = test_database['patients']
 
-test_collection.insert_one({ "name": "John", "address": "Highway 37" })
+# print("Before insert:")
+# for collect in test_database.list_collection_names():
+#     print(collect)
 
-print()
-print("After insert:")
-for x in test_collection.find():
-  print(x)
 
-test_collection.delete_one({"name" : "John"})
+for x in users.find():
+    print(x)
 
-print()
-print("After delete:")
-for x in test_collection.find():
-  print(x)
+# test_collection.insert_one({"name": "John", "address": "Highway 37"})
+
+# print()
+# print("After insert:")
+# for x in test_collection.find():
+#   print(x)
+
+# test_collection.delete_one({"name" : "John"})
+
+# print()
+# print("After delete:")
+# for x in test_collection.find():
+#   print(x)

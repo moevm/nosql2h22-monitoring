@@ -58,13 +58,6 @@ const DoctorRecommendations: FC<IDoctorRecommendationsProps> = ({
                 )}
               </Typography>
             </div>
-            {/*<Button*/}
-            {/*  disabled={edit !== null && edit !== recommendation.id}*/}
-            {/*  onClick={() => editMode(recommendation.id, recommendations)}*/}
-            {/*  variant={edit === recommendation.id ? "contained" : "outlined"}*/}
-            {/*>*/}
-            {/*  {edit === recommendation.id ? "Save" : "Edit"}*/}
-            {/*</Button>*/}
           </div>
         );
       })}

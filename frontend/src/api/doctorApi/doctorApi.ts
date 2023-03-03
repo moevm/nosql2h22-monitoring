@@ -6,9 +6,15 @@ import {
   SetQuestionResponse,
   SetRecommendationRequest,
   SetRecommendationResponse,
+  SetDoctorUnsignedDocumentsRequest,
+  SetDoctorUnsignedDocumentsResponse,
 } from "./doctorApi.typings";
 
 export const doctorApi = {
+  sendDoctorUnsignedDocuments: apiFunctionMutation<
+    SetDoctorUnsignedDocumentsRequest,
+    SetDoctorUnsignedDocumentsResponse
+  >("post", HTTP.sendUnsignDocuments),
   sendDoctorQuestion: apiFunctionMutation<
     SetQuestionRequest,
     SetQuestionResponse
