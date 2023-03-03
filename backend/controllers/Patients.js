@@ -100,7 +100,7 @@ module.exports.CreateAnswer = async function(req, res){
  */
 module.exports.GetUnsignedMedia = async function(req, res){
     const patientId = req.query.patientId;
-    const pMedia = await PatientMedia.findOne({patient: patientId}).exec();
+    const pMedia = await PatientMedia.findOne({patient: patientId, type: 'Unsigned'}).exec();
     if(!patient) {res.sendStatus(404); return;}
     res.send(pMedia.src);
 };
@@ -109,17 +109,20 @@ module.exports.GetUnsignedMedia = async function(req, res){
  * METHOD: POST
  * URL: /Patient/unsignedMedia/
  */
+
 module.exports.CreateUnsignedMedia = async function(req, res){
     const body = req.body;
     const files = req.files;
     const patientId = body.patient;
-    let pMedia = await PatientMedia.findOne({patient: patientId}).exec();
-    if(!pMedia) {res.sendStatus(404); return;}
-    const src = files.map(f => f.path); // save media
-    pMedia.src = src;
-    pMedia.created_at = new Date();
-    pMedia.type = 'Unsigned';
+    const src = files.map(f => f.path);
+    let pMedia = new PatientMedia({
+        src: src,
+        created_at: new Date(),
+        type: 'Unsigned',
+        patient: patientId
+    });
     await pMedia.save();
+    res.send(pMedia);
 };
 
 /**
@@ -128,7 +131,7 @@ module.exports.CreateUnsignedMedia = async function(req, res){
  */
 module.exports.GetSignedMedia = async function(req, res){
     const patientId = req.query.patientId;
-    const pMedia = await PatientMedia.findOne({patient: patientId}).exec();
+    const pMedia = await PatientMedia.findOne({patient: patientId, type: 'Signed'}).exec();
     if(!patient) {res.sendStatus(404); return;}
     res.send(pMedia.src);
 };
@@ -141,13 +144,15 @@ module.exports.CreateSignedMedia = async function(req, res){
     const body = req.body;
     const files = req.files;
     const patientId = body.patient;
-    let pMedia = await PatientMedia.findOne({patient: patientId}).exec();
-    if(!pMedia) {res.sendStatus(404); return;}
     const src = files.map(f => f.path);
-    pMedia.src = src;
-    pMedia.created_at = new Date();
-    pMedia.type = 'Signed';
+    let pMedia = new PatientMedia({
+        src: src,
+        created_at: new Date(),
+        type: 'Signed',
+        patient: patientId
+    });
     await pMedia.save();
+    res.send(pMedia);
 };
 
 /**
