@@ -9,9 +9,12 @@ const PatientMediaSchema = new Schema({
         type: Date,
         default: Date.now
     },
-    quiz: {
+    patient: {
         type: Schema.Types.ObjectId,
-        ref: 'Questions'
+        ref: 'Patients'
+    },
+    type: {
+        type: String
     }
 });
 
