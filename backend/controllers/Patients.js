@@ -117,7 +117,6 @@ module.exports.CreateUnsignedMedia = async function(req, res){
     const src = files.map(f => f.path);
     let pMedia = new PatientMedia({
         src: src,
-        created_at: new Date(),
         type: 'Unsigned',
         patient: patientId
     });
@@ -147,7 +146,6 @@ module.exports.CreateSignedMedia = async function(req, res){
     const src = files.map(f => f.path);
     let pMedia = new PatientMedia({
         src: src,
-        created_at: new Date(),
         type: 'Signed',
         patient: patientId
     });
