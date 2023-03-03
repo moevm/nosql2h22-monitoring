@@ -101,7 +101,7 @@ module.exports.CreateAnswer = async function (req, res) {
 module.exports.GetUnsignedMedia = async function (req, res) {
     const patientId = req.query.patientId;
     const pMedia = await PatientMedia.findOne({ patient: patientId, type: 'Unsigned' }).exec();
-    if (!patient) { res.sendStatus(404); return; }
+    if (!pMedia) { res.sendStatus(404); return; }
     res.send(pMedia.src);
 };
 
@@ -131,7 +131,7 @@ module.exports.CreateUnsignedMedia = async function (req, res) {
 module.exports.GetSignedMedia = async function (req, res) {
     const patientId = req.query.patientId;
     const pMedia = await PatientMedia.findOne({ patient: patientId, type: 'Signed' }).exec();
-    if (!patient) { res.sendStatus(404); return; }
+    if (!pMedia) { res.sendStatus(404); return; }
     res.send(pMedia.src);
 };
 
@@ -142,7 +142,7 @@ module.exports.GetSignedMedia = async function (req, res) {
 module.exports.CreateSignedMedia = async function (req, res) {
     const body = req.body;
     const files = req.files;
-    const patientId = body.patient;
+    const patientId = body.patient.replaceAll('"', '');
     const src = files.map(f => f.path);
     let pMedia = new PatientMedia({
         src: src,
