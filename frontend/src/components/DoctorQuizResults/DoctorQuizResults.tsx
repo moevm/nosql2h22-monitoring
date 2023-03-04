@@ -1,9 +1,13 @@
 import React, { useState, FC } from "react";
 import { Typography } from "@mui/material";
+import { useAppDispatch } from "../../hooks/useRedux";
+import { getQuizResultDocument } from "../../redux/reducers/userReducer/userReducer";
+import DownloadMedia from "../../shared/DownloadMedia/DownloadMedia";
 
 import { formatDate } from "../../utils/formatDate";
 import { IQuestion, QuizResult, QuizResultItem } from "../../types";
 import "./DoctorQuizResults.css";
+import { showError } from "../../utils/showError";
 interface IDoctorQuizResultsProps {
   quizResults: QuizResult[];
   questions: IQuestion[];
@@ -13,6 +17,19 @@ const DoctorQuizResults: FC<IDoctorQuizResultsProps> = ({
   quizResults,
   questions,
 }) => {
+  const dispatch = useAppDispatch();
+  const [unsignedMedia, setUnsignedMedia] = useState<string[] | null>(null);
+  const fetchUnsignedMedia = (QuizResultId: string) => {
+    dispatch(getQuizResultDocument({ params: { QuizResultId } }))
+      .unwrap()
+      .then((data) => {
+        if (!data) {
+          alert("Нет прикрепленных документов");
+        }
+        setUnsignedMedia(data);
+      })
+      .catch(showError);
+  };
   const getQuestionText = (questionId: string): string => {
     if (questions !== undefined) {
       const question = questions.find(
@@ -33,16 +50,17 @@ const DoctorQuizResults: FC<IDoctorQuizResultsProps> = ({
       );
       if (question !== undefined) {
         switch (question.answersType) {
-        case "logical":
-          if (result) return "Yes";
-          else return "No";
-        default:
-          return String(result);
+          case "logical":
+            if (result) return "Yes";
+            else return "No";
+          default:
+            return String(result);
         }
       }
     }
     return "";
   };
+
   return (
     <div className="patient-info__quiz-results">
       {quizResults.map((quizResult: QuizResult) => {
@@ -63,6 +81,12 @@ const DoctorQuizResults: FC<IDoctorQuizResultsProps> = ({
                   <Typography fontSize={18}>
                     Answer: {getAnswer(item.questionId, item.answer)}
                   </Typography>
+
+                  <DownloadMedia
+                    fetchMedia={() => fetchUnsignedMedia(item.questionId)}
+                    media={unsignedMedia}
+                    title={"Подписанные документы"}
+                  />
                 </div>
               );
             })}

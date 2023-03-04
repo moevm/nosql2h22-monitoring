@@ -34,7 +34,7 @@ export const getPatient = (patientId: string) => {
           .then(() => alert("Данные опроса отправлены"))
           .catch(showError);
       },
-      { patient: patientId }
+      { patient: `${patientId}` }
     );
   };
   return {

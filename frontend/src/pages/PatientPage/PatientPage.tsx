@@ -91,7 +91,11 @@ const PatientPage = () => {
             Отправить
           </Button>
         </Stack>
-        <DownloadMedia fetchMedia={fetchUnsignedMedia} media={unsignedMedia} />
+        <DownloadMedia
+          fetchMedia={fetchUnsignedMedia}
+          media={unsignedMedia}
+          title={"Неподписанные документы"}
+        />
       </Stack>
     </Stack>
   );

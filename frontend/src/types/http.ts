@@ -11,6 +11,9 @@ export enum HTTP {
 
   sendUnsignDocuments = "/Patient/unsignedMedia/",
 
+  getSignDocument = "/Patient/signedMedia",
+
+  getQuizResultDocument = "/Patient/answers/media",
   signIn = "/GetUser",
   setDoctor = "/Patient/setDoctor",
   setRecommendation = "/Patient/recommendation",

@@ -1,16 +1,24 @@
-import { apiFunctionMutation, apiFunctionQuery } from "../index";
 import { HTTP } from "../../types/http";
+import { apiFunctionMutation, apiFunctionQuery } from "../index";
 
 import {
+  GetDoctorQuizResultDocumentResponse,
+  GetDoctorSingDocumentResponse,
+  SetDoctorUnsignedDocumentsRequest,
+  SetDoctorUnsignedDocumentsResponse,
   SetQuestionRequest,
   SetQuestionResponse,
   SetRecommendationRequest,
   SetRecommendationResponse,
-  SetDoctorUnsignedDocumentsRequest,
-  SetDoctorUnsignedDocumentsResponse,
 } from "./doctorApi.typings";
 
 export const doctorApi = {
+  getQuizResultDocument: apiFunctionQuery<GetDoctorQuizResultDocumentResponse>(
+    HTTP.getQuizResultDocument
+  ),
+  getSignDocument: apiFunctionQuery<GetDoctorSingDocumentResponse>(
+    HTTP.getSignDocument
+  ),
   sendDoctorUnsignedDocuments: apiFunctionMutation<
     SetDoctorUnsignedDocumentsRequest,
     SetDoctorUnsignedDocumentsResponse

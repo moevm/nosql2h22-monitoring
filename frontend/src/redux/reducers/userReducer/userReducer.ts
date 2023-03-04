@@ -59,6 +59,14 @@ export const sendDoctorRecommendation = getAsyncActionMutation(
   doctorApi.sendDoctorRecommendation
 );
 
+export const getSignDocument = getAsyncActionQuery(
+  "patient/getSignDocument",
+  doctorApi.getSignDocument
+);
+export const getQuizResultDocument = getAsyncActionQuery(
+  "patient/getQuizResultDocument",
+  doctorApi.getQuizResultDocument
+);
 export const getPatientRecommendations = getAsyncActionQuery(
   "auth/rec",
   patientApi.getRecommendations

@@ -1,5 +1,12 @@
 import React, { FC, useState } from "react";
 import { Typography, Button, Stack } from "@mui/material";
+import { useAppDispatch } from "../../hooks/useRedux";
+import {
+  getSignDocument,
+  getUnsignedMedia,
+} from "../../redux/reducers/userReducer/userReducer";
+import DownloadMedia from "../../shared/DownloadMedia/DownloadMedia";
+import { showError } from "../../utils/showError";
 
 import DoctorQuiz from "../DoctorQuiz/DoctorQuiz";
 import DoctorRecommendations from "../DoctorRecommendations/DoctorRecommendations";
@@ -13,11 +20,23 @@ interface IPatientInfoProps {
 }
 
 const PatientInfo: FC<IPatientInfoProps> = ({ patientId }) => {
+  const dispatch = useAppDispatch();
   const { patient, refreshPatient, rowFiles, setRowFiles, sendAnswers } =
     getPatient(patientId);
   const [recommendations, setRecommendations] = useState<boolean>(false);
   const [quiz, setQuiz] = useState<boolean>(false);
-
+  const [unsignedMedia, setUnsignedMedia] = useState<string[] | null>(null);
+  const fetchUnsignedMedia = () => {
+    dispatch(getSignDocument({ params: { patientId } }))
+      .unwrap()
+      .then((data) => {
+        if (!data) {
+          alert("Нет неподписанных документов");
+        }
+        setUnsignedMedia(data);
+      })
+      .catch(showError);
+  };
   const [quizResults, setQuizResult] = useState<boolean>(false);
   if (patient) {
     return (
@@ -113,6 +132,13 @@ const PatientInfo: FC<IPatientInfoProps> = ({ patientId }) => {
                 Отправить результаты
               </Button>
             </Stack>
+          </div>
+          <div>
+            <DownloadMedia
+              fetchMedia={fetchUnsignedMedia}
+              media={unsignedMedia}
+              title={"Подписанные документы"}
+            />
           </div>
         </div>
       </>

@@ -9,9 +9,13 @@ export interface SetQuestionRequest {
   };
 }
 
+export type GetDoctorSingDocumentResponse = string[];
+
+export type GetDoctorQuizResultDocumentResponse = string[];
+
 export type SetDoctorUnsignedDocumentsRequest = FormData;
 
-export type SetDoctorUnsignedDocumentsResponse = path;
+export type SetDoctorUnsignedDocumentsResponse = path[];
 
 export type SetQuestionResponse = IQuestion;
 
