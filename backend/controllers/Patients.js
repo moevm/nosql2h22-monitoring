@@ -1,5 +1,6 @@
 const Patients = require('../models/Patient');
 const QuizResultMedia = require('../models/QuizResultMedia');
+const QuizResult = require('../models/QuizResult');
 const PatientMedia = require('../models/PatientMedia');
 const Recommendation = require('../models/Recommendation');
 const Question = require('../models/Question');
