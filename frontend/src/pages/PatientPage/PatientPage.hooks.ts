@@ -30,13 +30,13 @@ export const useStartQuiz = (patientId: string) => {
 };
 
 export const useGetRecommendations = (patientId: string) => {
-  const [recommendations, setRecommendations] = useState<
-    IRecommendation[] | null
-  >(null);
+  const [recommendations, setRecommendations] = useState<{
+    values: IRecommendation[];
+  } | null>(null);
   const isHavingDoctor =
     useAppSelector((state) => state.user.userInfo!.doctors)?.length === 1;
   const dispatch = useAppDispatch();
-
+  console.log(isHavingDoctor);
   useEffect(() => {
     if (isHavingDoctor) {
       dispatch(getPatientRecommendations({ params: { patientId } }))

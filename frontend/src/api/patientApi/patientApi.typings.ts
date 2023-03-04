@@ -14,7 +14,9 @@ type quizResultId = string;
 
 export type PatientQuizAnswersResponse = quizResultId;
 
-export type PatientRecommendationResponse = IRecommendation[] | null;
+export type PatientRecommendationResponse = {
+  values: IRecommendation[];
+} | null;
 export type PatientInfo = Patient | null;
 export interface SetDoctorRequest {
   patientId: string;

@@ -74,7 +74,7 @@ const PatientPage = () => {
         <Typography>Нажмите на кнопку, чтобы начать опрос</Typography>
       )}
       <Stack spacing={1}>
-        <PatientRecommendations recommendations={recommendations} />
+        <PatientRecommendations recommendations={recommendations?.values} />
         <Button variant="contained" onClick={startQuiz} disabled={!!questions}>
           Пройти опрос
         </Button>

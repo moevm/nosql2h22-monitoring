@@ -6,7 +6,7 @@ export interface SetQuestionRequest {
   quiz: {
     text: string;
     answersType: "numeric" | "logical" | "text" | "rating";
-  };
+  }[];
 }
 
 export type GetDoctorSingDocumentResponse = string[];

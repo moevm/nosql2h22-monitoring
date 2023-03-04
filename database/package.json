@@ -1,0 +1,14 @@
+{
+  "name": "database",
+  "version": "1.0.0",
+  "description": "database init script ",
+  "main": "index.js",
+  "scripts": {
+    "test": "test "
+  },
+  "keywords": [
+    "mongo"
+  ],
+  "author": "nevermore17",
+  "license": "ISC"
+}

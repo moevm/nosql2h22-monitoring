@@ -13,15 +13,15 @@ const toAnswersType = (
   str: string
 ): "numeric" | "logical" | "text" | "rating" => {
   switch (str) {
-  case "numeric":
-    return "numeric";
+    case "numeric":
+      return "numeric";
 
-  case "logical":
-    return "logical";
-  case "text":
-    return "text";
-  default:
-    return "rating";
+    case "logical":
+      return "logical";
+    case "text":
+      return "text";
+    default:
+      return "rating";
   }
 };
 const useDoctorQuizHooks = (refreshPatient: () => void, patientId: string) => {
@@ -98,20 +98,15 @@ const useDoctorQuizHooks = (refreshPatient: () => void, patientId: string) => {
   };
 
   const createQuestion = () => {
-    const body = {
-      patientId,
-      quiz: {
-        text: newQuestionText,
-        answersType: newQuestionAnswersType,
-      },
-    };
     dispatch(
       sendDoctorQuestion({
         patientId,
-        quiz: {
-          text: newQuestionText,
-          answersType: newQuestionAnswersType,
-        },
+        quiz: [
+          {
+            text: newQuestionText,
+            answersType: newQuestionAnswersType,
+          },
+        ],
       })
     )
       .unwrap()
