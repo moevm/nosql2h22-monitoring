@@ -142,7 +142,7 @@ module.exports.GetSignedMedia = async function (req, res) {
 module.exports.CreateSignedMedia = async function (req, res) {
     const body = req.body;
     const files = req.files;
-    const patientId = body.patient.replaceAll('"', '');
+    const patientId = body.patientId.replaceAll('"', '');
     const src = files.map(f => f.path);
     let pMedia = new PatientMedia({
         src: src,
