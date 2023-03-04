@@ -5,8 +5,11 @@
 
 .patient-info__element{
 	margin: 10px 0;
+	width: 30vw;
 }
-
+.patient-info__element h3 {
+	text-align: center;
+}
 .patient-info__description{
 	display: flex;
 	margin: 0 20px;
