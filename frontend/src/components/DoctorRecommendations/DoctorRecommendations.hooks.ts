@@ -15,7 +15,7 @@ const useRecommendationsHooks = (
   const dispatch = useAppDispatch();
   const editMode = (id: string, recommendations: IRecommendation[]) => {
     const index = recommendations.findIndex(
-      (recommendation: IRecommendation) => recommendation.id === id
+      (recommendation: IRecommendation) => recommendation._id === id
     );
     const recomandation: IRecommendation | undefined = recommendations[index];
     if (recomandation !== undefined) {
@@ -23,7 +23,7 @@ const useRecommendationsHooks = (
         const newRecomandations: IRecommendation[] = [...recommendations];
 
         const newRecomandation: IRecommendation = {
-          id: recomandation.id,
+          _id: recomandation._id,
           text,
           date: recomandation.date,
         };
@@ -34,7 +34,7 @@ const useRecommendationsHooks = (
         setEdit(null);
       } else {
         setText(recomandation.text);
-        setEdit(recomandation.id);
+        setEdit(recomandation._id);
       }
     }
   };

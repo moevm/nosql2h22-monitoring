@@ -29,7 +29,7 @@ const PatientRecommendations: FC<IPatientRecommendationsProps> = ({
         Рекомендации
       </Typography>
       {sortByDate(recommendations).map((recommendation) => (
-        <Accordion key={recommendation.id}>
+        <Accordion key={recommendation._id}>
           <AccordionSummary expandIcon={<ExpandMoreIcon />}>
             <Typography>
               Рекомендация от {formatDate(recommendation.date)}

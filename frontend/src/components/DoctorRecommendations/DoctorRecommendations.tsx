@@ -33,7 +33,7 @@ const DoctorRecommendations: FC<IDoctorRecommendationsProps> = ({
       {recommendations.map((recommendation: IRecommendation) => {
         return (
           <div
-            key={`recommendation_${recommendation.id}`}
+            key={`recommendation_${recommendation._id}`}
             className="patient-info__recommendation"
           >
             <div className="patient-info__recommendation__element patient-info__recommendations__date">
@@ -43,7 +43,7 @@ const DoctorRecommendations: FC<IDoctorRecommendationsProps> = ({
             </div>
             <div className="patient-info__recommendation__element patient-info__recommendation__text">
               <Typography fontSize={20}>
-                {edit === recommendation.id ? (
+                {edit === recommendation._id ? (
                   <TextField
                     multiline
                     fullWidth

@@ -28,15 +28,13 @@ const DoctorPage = () => {
         {userInfo?.patients?.map((patient) => {
           console.log(patient);
           return (
-            <>
-              <Button
-                variant={patient._id === patientId ? "contained" : "text"}
-                key={patient._id}
-                onClick={() => clickHandler(patient._id)}
-              >
-                {patient.name}
-              </Button>
-            </>
+            <Button
+              variant={patient._id === patientId ? "contained" : "text"}
+              key={`patient_${patient._id}`}
+              onClick={() => clickHandler(patient._id)}
+            >
+              {patient.name}
+            </Button>
           );
         })}
         {patientId ? <PatientInfo patientId={patientId} /> : <></>}

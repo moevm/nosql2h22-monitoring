@@ -1,5 +1,5 @@
 export interface IRecommendation {
-  id: string;
+  _id: string;
   date: Date;
   text: string;
 }
