@@ -16,7 +16,7 @@ module.exports.up = async function (req, res) {
  */
 module.exports.GetPatient = async function (req, res) {
     const patientId = req.query.id;
-    const patient = await Patients.findById(patientId).exec();
+    const patient = await Patients.findById(patientId).populate('quiz').populate('recommendations').exec();
     if (!patient) {
         res.sendStatus(404);
         return;
