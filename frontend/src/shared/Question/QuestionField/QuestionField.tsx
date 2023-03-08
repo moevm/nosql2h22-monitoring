@@ -7,7 +7,7 @@ import TextQuestion from '../TextQuestion/TextQuestion';
 import RatingQuestion from '../RatingQuestion/RatingQuestion';
 
 interface IQuestionTypeProps {
-  type: IQuestion['answersType'];
+  type: IQuestion['answerType'];
   questionId: string;
 }
 

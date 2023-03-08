@@ -11,13 +11,8 @@ const DoctorPage = () => {
   const userInfo = useAppSelector((state) => state.user.userInfo);
   useEffect(() => {
     if (!userInfo) navigate("/");
-    else {
-      console.log(userInfo);
-    }
   }, []);
-  useEffect(() => {
-    console.log(patientId);
-  }, [patientId]);
+
   const clickHandler = (id: string) => {
     setPatientId(id);
     console.log(patientId);

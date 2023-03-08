@@ -16,7 +16,7 @@ module.exports.up = async function (req, res) {
  */
 module.exports.GetPatient = async function (req, res) {
     const patientId = req.query.id;
-    const patient = await Patients.findById(patientId).populate('quiz').populate('recommendations').exec();
+    const patient = await Patients.findById(patientId).populate('quiz').populate('recommendations').populate('quiz_results').exec();
     if (!patient) {
         res.sendStatus(404);
         return;
@@ -32,7 +32,8 @@ module.exports.GetPatientQuiz = async function (req, res) {
     const patientId = req.query.patientId;
     const patient = await Patients.findById(patientId).populate('quiz').exec();
     if (!patient) { res.sendStatus(404); return; }
-    res.send({ values: patient.quiz });
+
+    res.send( patient.quiz);
 };
 
 /**
@@ -51,12 +52,12 @@ module.exports.CreateQuiz = async function (req, res) {
     for (const question of quiz) { // fuck forEach (maybe)
         let newQuestion = new Question({
             text: question.text,
-            answerType: question.answers_type
+            answerType: question.answersType
         });
         await newQuestion.save();
         q_Ids.push(newQuestion._id);
     }
-    patient.quiz = q_Ids;
+    patient.quiz = [...patient.quiz, ...q_Ids];
     await patient.save();
     res.send(patient);
 };
@@ -66,9 +67,13 @@ module.exports.CreateQuiz = async function (req, res) {
  * URL: /Patient/answers/media?:QuizResultId
  */
 module.exports.GetAnswersMedia = async function (req, res) {
+    console.log(1);
     const QuizResultId = req.query.QuizResultId;
-    const QuizMedia = await QuizResultMedia.findById({ quizResult: QuizResultId }).exec();
-    if (!QuizMedia) { res.sendStatus(404); return; }
+    const QuizMedia = await QuizResultMedia.findOne({quizResult: QuizResultId}).exec();
+    console.log(QuizMedia);
+
+
+    if (!QuizMedia) { res.sendStatus(404); }
     res.send(QuizMedia.src);
 };
 
@@ -80,9 +85,11 @@ module.exports.CreateAnswer = async function (req, res) {
     const body = req.body;
     const files = req.files;
     const quizResult = body.quizResult;
+    const patientId = body.patientId;
+
+    console.log(typeof quizResult)
     const newQR = new QuizResult({
-        date: quizResult.date,
-        Result: quizResult.Result
+        Result: JSON.parse(quizResult)
     });
     await newQR.save();
     const src = files.map(f => f.path);
@@ -91,7 +98,14 @@ module.exports.CreateAnswer = async function (req, res) {
         create_at: newQR.date,
         quizResult: newQR._id
     });
+
     await newQRMedia.save();
+
+    const patient = await Patients.findById(JSON.parse(patientId)).exec();
+
+    patient.quiz_results.push(newQR._id);
+    await patient.save();
+
     res.send({ newQR, newQRMedia });
 };
 

@@ -214,9 +214,6 @@
         "functions": false
       }
     ],
-    "arrow-parens": [
-      "as-needed"
-    ],
     "arrow-spacing": [
       "error"
     ],

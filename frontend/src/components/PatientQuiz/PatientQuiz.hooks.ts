@@ -2,7 +2,7 @@ import { useState } from 'react';
 
 import { useFetchWithFormData } from '../../hooks/useFetchWithFormData';
 import { QuizResultItem } from '../../types';
-import { useAppDispatch } from '../../hooks/useRedux';
+import { useAppDispatch, useAppSelector } from '../../hooks/useRedux';
 import { sendPatientAnswers } from '../../redux/reducers/userReducer/userReducer';
 import { showError } from '../../utils/showError';
 
@@ -12,6 +12,7 @@ export const useQuiz = (questionsLength: number) => {
   const [answers, setAnswers] = useState<IQuizContext>({});
   const {setRowFiles, prepareData, rowFiles} = useFetchWithFormData();
   const dispatch = useAppDispatch();
+  const patientId = useAppSelector(state => state.user.userInfo?.id);
 
   const handleAnswers = () => {
 
@@ -34,7 +35,7 @@ export const useQuiz = (questionsLength: number) => {
         .unwrap()
         .then(() => alert('Данные опроса отправлены'))
         .catch(showError);
-    }, {quizResult: answerArray});
+    }, {quizResult: answerArray, patientId });
   };
 
   return {setAnswers, setRowFiles, sendAnswers: handleAnswers, rowFiles};

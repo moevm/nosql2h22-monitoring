@@ -21,6 +21,7 @@ module.exports.GetUser = async function (req, res) {
     } else {
         found = await Patients.findById(user.profile).exec();
         resObj.doctors = [];
+        console.log(await Patients.find(), user.profile);
         if (found.doctor) {
             // Doctors.findById(found.doctor).select({'_id': 1, 'name': 1}).exec((err, d) => {
             //     if(err) throw err;
