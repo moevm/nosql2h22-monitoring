@@ -15,6 +15,7 @@ const DownloadMedia: FC<IDownloadMediaProps> = ({
   fetchMedia,
   title,
 }) => {
+  console.log(media);
   return (
     <Stack>
       <Typography fontSize={20}>{title}</Typography>

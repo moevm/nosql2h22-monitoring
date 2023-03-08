@@ -9,22 +9,26 @@ import { QuizContext } from './QuizContext';
 import { useQuiz } from './PatientQuiz.hooks';
 
 interface IPatientQuizProps {
-  questions: IQuestion[];
+  questions: IQuestion[] | null;
 }
 
 const PatientQuiz: FC<IPatientQuizProps> = ({questions}) => {
-  const {setAnswers, setRowFiles, sendAnswers, rowFiles} = useQuiz(questions.length);
+  const {setAnswers, setRowFiles, sendAnswers, rowFiles} = useQuiz(questions?.length || 0);
+  if (!questions?.length) {
+    return  <Typography>Нажмите на кнопку, чтобы начать опрос</Typography>;
+  }
+
 
   return (
     <QuizContext.Provider value={setAnswers}>
       <Stack>
         <Typography marginBottom={2} fontSize={20}>Пройдите опрос</Typography>
-        {questions.map(question =>
+        {questions?.map(question =>
           <Question
-            key={question.questionId}
-            type={question.answersType}
+            key={question._id}
+            type={question.answerType}
             text={question.text}
-            questionId={question.questionId}
+            questionId={question._id}
           />)}
         <FileLoader
           rowFiles={rowFiles}

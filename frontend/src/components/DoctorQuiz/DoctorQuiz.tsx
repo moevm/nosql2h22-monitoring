@@ -37,11 +37,11 @@ const DoctorQuiz: FC<IDoctorQuizProps> = ({
         {questions.map((question: IQuestion) => {
           return (
             <div
-              key={`question_${question.questionId}`}
+              key={`question_${question._id}`}
               className="patient-info__quiz"
             >
               <Typography fontSize={20} className="patient-info__quiz__element">
-                {edit === question.questionId ? (
+                {edit === question._id ? (
                   <TextField
                     label="text"
                     variant="standard"
@@ -57,7 +57,7 @@ const DoctorQuiz: FC<IDoctorQuizProps> = ({
                 fontSize={20}
                 className="patient-info__quiz__element"
               >
-                {edit === question.questionId ? (
+                {edit === question._id ? (
                   <TextField
                     label="type"
                     variant="standard"
@@ -72,7 +72,7 @@ const DoctorQuiz: FC<IDoctorQuizProps> = ({
                     ))}
                   </TextField>
                 ) : (
-                  question.answersType
+                  question.answerType
                 )}
               </Typography>
             </div>

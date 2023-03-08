@@ -5,13 +5,14 @@ export interface IRecommendation {
 }
 
 export interface IQuestion {
-  questionId: string;
-  answersType: "numeric" | "logical" | "text" | "rating";
+  _id: string;
+  answerType: "numeric" | "logical" | "text" | "rating";
   text: string;
 }
 
 export enum Errors {
   UNEXPECTED_ERROR = "Непредвиденная ошибка. Попробуйте позже",
+  SERVER_ERROR = 'Ошибка сервера. Пожалуйста, попробуйте позже'
 }
 
 export type QueryParams = { [key in string]: string };
@@ -31,9 +32,9 @@ export interface QuizResultItem {
 }
 
 export interface QuizResult {
-  id: string;
+  _id: string;
   date: Date;
-  result: QuizResultItem[];
+  Result: QuizResultItem[];
 }
 
 export interface Patient {

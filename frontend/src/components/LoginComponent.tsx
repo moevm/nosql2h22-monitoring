@@ -8,6 +8,7 @@ import { useInput } from '../hooks/useInput';
 import { useAppDispatch, useAppSelector } from '../hooks/useRedux';
 import { signIn } from '../redux/reducers/userReducer/userReducer';
 import { showError } from '../utils/showError';
+import { Errors } from "../types";
 
 const LoginComponent = () => {
   const [login, setLogin] = useInput('');
@@ -19,7 +20,7 @@ const LoginComponent = () => {
   const loginAction = () => {
     dispatch(signIn({login}))
       .unwrap()
-      .catch(showError);
+      .catch(() => showError(Errors.SERVER_ERROR));
   };
 
   useEffect(() => {

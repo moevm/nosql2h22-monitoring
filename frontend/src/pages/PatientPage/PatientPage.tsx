@@ -56,7 +56,8 @@ const PatientPage = () => {
 
   if (doctors && doctors.length > 1) {
     return (
-      <Stack>
+      <Stack gap={2}>
+        <Typography fontSize={20}>Выберите доктора</Typography>
         {doctors.map((doctor) => (
           <Typography onClick={() => chooseDoctor(doctor._id)} key={doctor._id}>
             {doctor.name}
@@ -68,11 +69,7 @@ const PatientPage = () => {
 
   return (
     <Stack direction="row" justifyContent={"space-between"} padding="0 100px">
-      {questions ? (
-        <PatientQuiz questions={questions} />
-      ) : (
-        <Typography>Нажмите на кнопку, чтобы начать опрос</Typography>
-      )}
+      <PatientQuiz questions={questions} />
       <Stack spacing={1}>
         <PatientRecommendations recommendations={recommendations?.values} />
         <Button variant="contained" onClick={startQuiz} disabled={!!questions}>

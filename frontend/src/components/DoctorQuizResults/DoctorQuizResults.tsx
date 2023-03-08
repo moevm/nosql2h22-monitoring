@@ -1,9 +1,9 @@
 import React, { useState, FC } from "react";
 import { Typography } from "@mui/material";
+
 import { useAppDispatch } from "../../hooks/useRedux";
 import { getQuizResultDocument } from "../../redux/reducers/userReducer/userReducer";
 import DownloadMedia from "../../shared/DownloadMedia/DownloadMedia";
-
 import { formatDate } from "../../utils/formatDate";
 import { IQuestion, QuizResult, QuizResultItem } from "../../types";
 import "./DoctorQuizResults.css";
@@ -33,7 +33,7 @@ const DoctorQuizResults: FC<IDoctorQuizResultsProps> = ({
   const getQuestionText = (questionId: string): string => {
     if (questions !== undefined) {
       const question = questions.find(
-        (question: IQuestion) => question.questionId === questionId
+        (question: IQuestion) => question._id === questionId
       );
       if (question !== undefined) return question.text;
       else return "Not Found question";
@@ -46,20 +46,22 @@ const DoctorQuizResults: FC<IDoctorQuizResultsProps> = ({
   ): string => {
     if (questions !== undefined) {
       const question = questions.find(
-        (question: IQuestion) => question.questionId === questionId
+        (question: IQuestion) => question._id === questionId
       );
       if (question !== undefined) {
-        switch (question.answersType) {
-          case "logical":
-            if (result) return "Yes";
-            else return "No";
-          default:
-            return String(result);
+        switch (question.answerType) {
+        case "logical":
+          if (result) return "Yes";
+          else return "No";
+        default:
+          return String(result);
         }
       }
     }
     return "";
   };
+
+  console.log(quizResults);
 
   return (
     <div className="patient-info__quiz-results">
@@ -72,7 +74,7 @@ const DoctorQuizResults: FC<IDoctorQuizResultsProps> = ({
             >
               Date: {formatDate(quizResult.date)}
             </Typography>
-            {quizResult.result.map((item: QuizResultItem) => {
+            {quizResult.Result.map((item: QuizResultItem) => {
               return (
                 <div className="patient-info__quiz-result__answer">
                   <Typography fontSize={18} sx={{ marginTop: "20px" }}>
@@ -81,15 +83,14 @@ const DoctorQuizResults: FC<IDoctorQuizResultsProps> = ({
                   <Typography fontSize={18}>
                     Answer: {getAnswer(item.questionId, item.answer)}
                   </Typography>
-
-                  <DownloadMedia
-                    fetchMedia={() => fetchUnsignedMedia(item.questionId)}
-                    media={unsignedMedia}
-                    title={"Подписанные документы"}
-                  />
                 </div>
               );
             })}
+            <DownloadMedia
+              fetchMedia={() => fetchUnsignedMedia(quizResult._id)}
+              media={unsignedMedia}
+              title={"Документы"}
+            />
           </div>
         );
       })}
