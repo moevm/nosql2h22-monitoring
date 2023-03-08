@@ -56,7 +56,7 @@ module.exports.CreateQuiz = async function (req, res) {
         await newQuestion.save();
         q_Ids.push(newQuestion._id);
     }
-    patient.quiz = q_Ids;
+    patient.quiz = [...patient.quiz, ...q_Ids];
     await patient.save();
     res.send(patient);
 };
