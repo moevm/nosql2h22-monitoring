@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import TextField from '@mui/material/TextField';
-import { Button, CircularProgress } from '@mui/material';
+import { Button, CircularProgress, Typography } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 
 import '../css/LoginComponent.css';
@@ -20,7 +20,7 @@ const LoginComponent = () => {
   const loginAction = () => {
     dispatch(signIn({login}))
       .unwrap()
-      .catch(() => showError(Errors.SERVER_ERROR));
+      .catch(() => showError('Неверный логин.'));
   };
 
   useEffect(() => {
@@ -31,9 +31,10 @@ const LoginComponent = () => {
   return (
     <>
       <div className="LoginComponent">
+        <Typography fontSize={30}>Вход в приложение</Typography>
         <TextField
           inputProps={{pattern: '[a-z]{1,15}'}}
-          label="Login"
+          label="Логин"
           variant="outlined"
           value={login}
           onChange={setLogin}
