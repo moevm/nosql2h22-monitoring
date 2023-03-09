@@ -12,7 +12,8 @@ export interface IQuestion {
 
 export enum Errors {
   UNEXPECTED_ERROR = "Непредвиденная ошибка. Попробуйте позже",
-  SERVER_ERROR = 'Ошибка сервера. Пожалуйста, попробуйте позже'
+  SERVER_ERROR = 'Ошибка сервера. Пожалуйста, попробуйте позже',
+  INVALID_LOGIN = 'Неверный логин'
 }
 
 export type QueryParams = { [key in string]: string };
