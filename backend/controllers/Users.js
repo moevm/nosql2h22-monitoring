@@ -21,7 +21,6 @@ module.exports.GetUser = async function (req, res) {
     } else {
         found = await Patients.findById(user.profile).exec();
         resObj.doctors = [];
-        console.log(await Patients.find(), user.profile);
         if (found.doctor) {
             // Doctors.findById(found.doctor).select({'_id': 1, 'name': 1}).exec((err, d) => {
             //     if(err) throw err;
@@ -42,4 +41,23 @@ module.exports.GetUser = async function (req, res) {
 module.exports.GetAllUsers = async function (req, res) {
     let users = await Users.find({}).exec();
     res.send(users);
+}
+
+module.exports.DB_INIT = async function (req, res){
+    const newUsers = [{Name: 'Ivan Ivanov', login: 'ivan_ivanov', type: 'doctor'}, {Name: 'Petr Petrov', login: 'petr_petrov', type: 'doctor'}, {Name: 'Zidan Zidanov', login: 'z', type: 'patient'}, {Name: 'Kek W', login: 'kekl', type: 'patient'}];
+    let users = await Users.find({}).exec();
+    if(!users.length){
+        res.send('DB have been already inited!');
+        return;
+    }
+    newUsers.forEach(async (u) => {
+        let newDoctorOrPatient = u.type === 'doctor' ? new Doctor({ name: u.Name }) : new Patient({ name: u.Name });
+        await newDoctorOrPatient.save();
+        const newUser = new User({
+            login: u.login,
+            role: u.type,
+            profile: newDoctorOrPatient._id
+        });
+        await newUser.save();
+    });
 }

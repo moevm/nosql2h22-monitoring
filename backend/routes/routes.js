@@ -9,7 +9,7 @@ const db = require('../db.js');
 // Test
 
 router.post('/upload', upload.any(), PatientsController.up);
-
+router.post('/db_init', UsersController.DB_INIT);
 // User
 
 router.post('/GetUser/', UsersController.GetUser); // +
