@@ -46,18 +46,19 @@ module.exports.GetAllUsers = async function (req, res) {
 module.exports.DB_INIT = async function (req, res){
     const newUsers = [{Name: 'Ivan Ivanov', login: 'ivan_ivanov', type: 'doctor'}, {Name: 'Petr Petrov', login: 'petr_petrov', type: 'doctor'}, {Name: 'Zidan Zidanov', login: 'z', type: 'patient'}, {Name: 'Kek W', login: 'kekl', type: 'patient'}];
     let users = await Users.find({}).exec();
-    if(!users.length){
+    if(users.length){
         res.send('DB have been already inited!');
         return;
     }
     newUsers.forEach(async (u) => {
-        let newDoctorOrPatient = u.type === 'doctor' ? new Doctor({ name: u.Name }) : new Patient({ name: u.Name });
+        let newDoctorOrPatient = u.type === 'doctor' ? new Doctors({ name: u.Name }) : new Patients({ name: u.Name });
         await newDoctorOrPatient.save();
-        const newUser = new User({
+        const newUser = new Users({
             login: u.login,
             role: u.type,
             profile: newDoctorOrPatient._id
         });
         await newUser.save();
     });
+    res.send('DB have been inited!');
 }
