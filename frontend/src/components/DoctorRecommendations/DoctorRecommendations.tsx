@@ -72,7 +72,7 @@ const DoctorRecommendations: FC<IDoctorRecommendationsProps> = ({
           onChange={inputRecommendationText}
         />
         <Button onClick={createRecommendation} variant="contained">
-          CREATE
+          Создать
         </Button>
       </div>
     </div>
