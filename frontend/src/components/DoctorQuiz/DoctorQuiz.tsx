@@ -101,7 +101,7 @@ const DoctorQuiz: FC<IDoctorQuizProps> = ({
             ))}
           </TextField>
           <Button size="large" variant="contained" onClick={createQuestion}>
-            CREATE
+            Добавить вопрос
           </Button>
         </div>
       </div>

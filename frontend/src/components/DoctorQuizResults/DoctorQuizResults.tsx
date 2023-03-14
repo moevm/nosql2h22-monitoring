@@ -72,16 +72,16 @@ const DoctorQuizResults: FC<IDoctorQuizResultsProps> = ({
               sx={{ padding: "0 20px", backgroundColor: "#ebebeb;" }}
               fontSize={20}
             >
-              Date: {formatDate(quizResult.date)}
+              Дата: {formatDate(quizResult.date)}
             </Typography>
             {quizResult.Result.map((item: QuizResultItem) => {
               return (
                 <div className="patient-info__quiz-result__answer">
                   <Typography fontSize={18} sx={{ marginTop: "20px" }}>
-                    Question: {getQuestionText(item.questionId)}
+                    Вопрос: {getQuestionText(item.questionId)}
                   </Typography>
                   <Typography fontSize={18}>
-                    Answer: {getAnswer(item.questionId, item.answer)}
+                    Ответ: {getAnswer(item.questionId, item.answer)}
                   </Typography>
                 </div>
               );

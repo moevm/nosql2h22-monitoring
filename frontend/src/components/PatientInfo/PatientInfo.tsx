@@ -52,7 +52,7 @@ const PatientInfo: FC<IPatientInfoProps> = ({ patientId }) => {
               </Typography>
               <Typography variant="h3" fontSize={20}>
                 <h3>
-                  <span>Name:</span> {patient.name}
+                  <span>Имя:</span> {patient.name}
                 </h3>
               </Typography>
             </div>
@@ -72,7 +72,7 @@ const PatientInfo: FC<IPatientInfoProps> = ({ patientId }) => {
                   variant={quiz ? "outlined" : "contained"}
                 >
                   <Typography variant="h3" fontSize={20}>
-                    <h3>Quiz</h3>
+                    <h3>Опрос</h3>
                   </Typography>
                 </Button>
                 {quiz ? (
@@ -93,7 +93,7 @@ const PatientInfo: FC<IPatientInfoProps> = ({ patientId }) => {
                   variant={recommendations ? "outlined" : "contained"}
                 >
                   <Typography variant="h3" fontSize={20}>
-                    <h3>Recommendations</h3>
+                    <h3>Рекомендации</h3>
                   </Typography>
                 </Button>
                 {recommendations ? (
@@ -116,7 +116,7 @@ const PatientInfo: FC<IPatientInfoProps> = ({ patientId }) => {
                   variant={quizResults ? "outlined" : "contained"}
                 >
                   <Typography variant="h3" fontSize={20}>
-                    <h3>Quiz Result</h3>
+                    <h3>Результаты опроса</h3>
                   </Typography>
                 </Button>
                 {quizResults ? (
